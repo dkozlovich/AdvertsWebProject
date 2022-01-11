@@ -95,7 +95,6 @@ public class UserDAOImpl implements UserDAO {
                     throw new DAOException(e);
                 }
             }
-            con.close();
             User user = new User();
             user.setId(id);
             user.setUsername(dto.getUsername());
