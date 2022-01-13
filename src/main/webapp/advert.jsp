@@ -39,9 +39,12 @@
     </body>
     <c:choose>
         <c:when test="${advert.userId == currentUser.id}">
-            <form action="Controller" method="POST">
-                <input type="hidden" name="command" value="OPEN_SECTION">
+            <form action="advertUpdate.jsp">
+                <input type="hidden" name="id" value=${advert.id}>
                 <input type="hidden" name="sectionID" value=${advert.sectionId}>
+                <input type="hidden" name="name" value=${advert.name}>
+                <input type="hidden" name="content" value=${advert.content}>
+                <input type="hidden" name="cost" value=${advert.cost}>
                 <table style="with: 50%">
                 </table>
                 <input type="submit" value="Edit" />

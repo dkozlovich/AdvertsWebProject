@@ -28,7 +28,7 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private final static String DELETE_ADVERT = "DELETE FROM project.adverts WHERE id=?";
 
-    private final static String UPDATE_ADVERT = "UPDATE project.adverts SET sectionID=?, name=?, content=?, cost=?, modified=?, userID=? WHERE id=?";
+    private final static String UPDATE_ADVERT = "UPDATE project.adverts SET sectionID=?, name=?, content=?, cost=?, modified=? WHERE id=?";
 
     private static AdvertDAO instance;
 
@@ -127,8 +127,7 @@ public class AdvertDAOImpl implements AdvertDAO {
             stmt.setString(3,dto.getContent());
             stmt.setDouble(4,dto.getCost());
             stmt.setTimestamp(5,timestamp);
-            stmt.setInt(6,dto.getUserId());
-            stmt.setInt(7,dto.getId());
+            stmt.setInt(6,dto.getId());
             stmt.executeUpdate();
         } catch (Exception e) {
             throw new DAOException(e);

@@ -3,7 +3,6 @@ package com.epam.project.dto;
 public class AdvertUpdateDTO {
     private int id;
     private int sectionId;
-    private int userId;
     private String name;
     private String content;
     private double cost;
@@ -23,15 +22,6 @@ public class AdvertUpdateDTO {
 
     public AdvertUpdateDTO setSectionId(int sectionId) {
         this.sectionId = sectionId;
-        return this;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public AdvertUpdateDTO setUserId(int userId) {
-        this.userId = userId;
         return this;
     }
 

@@ -24,7 +24,7 @@ public class UpdateAdvertActionCommand implements ActionCommand {
         dto.setCost(Double.parseDouble(request.getParameter("cost")));
         try {
             advertService.updateAdvert(dto);
-            page = ConfigurationManager.getProperty("path.page.admin");
+            page = ConfigurationManager.getProperty("path.page.main");
         } catch (ServiceException e) {
             e.printStackTrace();
         }
