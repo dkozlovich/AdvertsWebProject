@@ -34,19 +34,20 @@
     </head>
     <body>
     <form>
-        <textarea readonly> ${advert.content}</textarea>
+        <textarea readonly>${advert.content}</textarea>
     </form>
     </body>
     <c:choose>
         <c:when test="${advert.userId == currentUser.id}">
             <form action="advertUpdate.jsp">
-                <input type="hidden" name="id" value=${advert.id}>
-                <input type="hidden" name="sectionID" value=${advert.sectionId}>
-                <input type="hidden" name="name" value=${advert.name}>
-                <input type="hidden" name="content" value=${advert.content}>
-                <input type="hidden" name="cost" value=${advert.cost}>
+<%--                <input type="hidden" name="id" value=${advert.id}>--%>
+<%--                <input type="hidden" name="sectionID" value=${advert.sectionId}>--%>
+<%--                <input type="hidden" name="name" value=${advert.name}>--%>
+<%--                <input type="hidden" name="content" value=${advert.content}>--%>
+<%--                <input type="hidden" name="cost" value=${advert.cost}>--%>
                 <table style="with: 50%">
                 </table>
+<%--                <input type="hidden" name="sectionName" value=${sectionName}>--%>
                 <input type="submit" value="Edit" />
             </form>
         </c:when>

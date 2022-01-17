@@ -24,17 +24,22 @@
     <br>
     Section:
     <br/>
-<%--    <select name="sectionID" size="1">--%>
-<%--        <c:forEach items="${sections}" var="s">--%>
-<%--            <option value=${s.id}>${s.name}</option>--%>
-<%--        </c:forEach>--%>
-
-<%--    </select>--%>
+    <select name="sectionID" size="1">
+        <c:forEach items="${sections}" var="s">
+            <c:choose>
+            <c:when test="${s.name == sectionName}">
+                <option selected value=${s.id}>${s.name}</option>
+            </c:when>
+            <c:otherwise>
+                <option value=${s.id}>${s.name}</option>
+            </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </select>
     <br>
-    <textarea name="content"> value=${advert.content} </textarea>
+    <textarea name="content">${advert.content}</textarea>
     <br>
     <input type="hidden" name="id" value=${advert.id}>
-    <input type="hidden" name="sectionID" value=${advert.sectionId}>
     <input type="submit" value="Update"/>
 </form>
 </body>
