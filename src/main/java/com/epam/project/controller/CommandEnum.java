@@ -10,6 +10,8 @@ public enum CommandEnum {
     SIGN_UP(new RegisterActionCommand()),
     OPEN_ADMIN_PAGE(new OpenAdminPageActionCommand()),
     OPEN_MAIN_PAGE(new OpenMainPageActionCommand()),
+    OPEN_LOGIN_PAGE(new OpenLoginPageActionCommand()),
+    OPEN_SIGNUP_PAGE(new OpenSignUpPageActionCommand()),
     DELETE_SECTION(new DeleteSectionActionCommand()),
     CREATE_SECTION(new CreateSectionActionCommand()),
     UPDATE_SECTION(new UpdateSectionActionCommand()),
@@ -20,7 +22,6 @@ public enum CommandEnum {
     OPEN_ADVERT_CREATE_PAGE(new OpenAdvertCreatePageActionCommand()),
     OPEN_ADVERTS_OF_USER(new OpenAdvertsOfUserActionCommand()),
     OPEN_SECTION(new OpenSectionPageActionCommand());
-
 
     ActionCommand command;
 

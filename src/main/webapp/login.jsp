@@ -19,5 +19,6 @@
     <br/>
     <input type="submit" value="Log in"/>
 </form>
+<button type="button" name="back" onclick="history.back()">Back</button>
 </body>
 </html>

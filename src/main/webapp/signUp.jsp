@@ -23,11 +23,10 @@
                 ${errorSignUPPassMessage}</td>
             <br/>
         </tr>
-
     </table>
-
     <input type="submit" value="Submit" />
-
 </form>
+<br/>
+<button type="button" name="back" onclick="history.back()">Back</button>
 </body>
 </html>
