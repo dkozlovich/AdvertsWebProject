@@ -26,8 +26,16 @@
     <br/>
     <select name="sectionID" size="1">
         <c:forEach items="${sections}" var="s">
-            <option value=${s.id}>${s.name}</option>
+            <c:choose>
+                <c:when test="${s.name == sectionName}">
+                    <option selected value=${s.id}>${s.name}</option>
+                </c:when>
+                <c:otherwise>
+                    <option value=${s.id}>${s.name}</option>
+                </c:otherwise>
+            </c:choose>
         </c:forEach>
+    </select>
 
 </select>
     <br>
@@ -36,5 +44,6 @@
     <input type="hidden" name="userID" value=${currentUser.id}>
     <input type="submit" value="Create"/>
 </form>
+<button type="button" name="back" onclick="history.back()">Back</button>
 </body>
 </html>

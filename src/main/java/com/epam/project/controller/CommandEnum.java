@@ -17,6 +17,7 @@ public enum CommandEnum {
     DELETE_ADVERT(new DeleteAdvertActionCommand()),
     UPDATE_ADVERT(new UpdateAdvertActionCommand()),
     OPEN_ADVERT(new OpenAdvertPageActionCommand()),
+    OPEN_ADVERT_CREATE_PAGE(new OpenAdvertCreatePageActionCommand()),
     OPEN_ADVERTS_OF_USER(new OpenAdvertsOfUserActionCommand()),
     OPEN_SECTION(new OpenSectionPageActionCommand());
 

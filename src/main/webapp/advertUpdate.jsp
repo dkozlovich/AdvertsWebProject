@@ -42,5 +42,6 @@
     <input type="hidden" name="id" value=${advert.id}>
     <input type="submit" value="Update"/>
 </form>
+<button type="button" name="back" onclick="history.back()">Back</button>
 </body>
 </html>

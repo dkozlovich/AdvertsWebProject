@@ -20,13 +20,16 @@
 
     <br/>
     <form action="Controller" method="POST">
+        <input type="hidden" name="command" value="OPEN_ADVERT_CREATE_PAGE">
+        <table style="with: 50%">
+        </table>
+        <input type="submit" value="Create new advert" />
+    </form>
+    <form action="Controller" method="POST">
         <input type="hidden" name="command" value="logout">
         <table style="with: 50%">
         </table>
         <input type="submit" value="Logout" />
     </form>
-
-
-
 </body>
 </html>

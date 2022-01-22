@@ -36,6 +36,13 @@
 </table>
 <br/>
 <form action="Controller" method="POST">
+    <input type="hidden" name="command" value="OPEN_ADVERT_CREATE_PAGE">
+    <input type="hidden" name="sectionName" value=${sectionName}>
+    <table style="with: 50%">
+    </table>
+    <input type="submit" value="Create new advert" />
+</form>
+<form action="Controller" method="POST">
     <input type="hidden" name="command" value="OPEN_MAIN_PAGE">
     <input type="hidden" name="login" value=${user}>
     <table style="with: 50%">
