@@ -27,7 +27,7 @@
         <style>
             #advert {
                 width: 60%;
-                height: 25%;
+                height: 20%;
                 resize: none;
             }
             #message {
@@ -43,18 +43,25 @@
     </form>
     </body>
     <h2>Messages:</h2>
-
-    <table >
-        <tr>
-            <th>Author</th></tf><th>Created</th><th>Content</th>
-            <c:forEach items="${messages}" var="m">
-        </tr>
-        <tr>
-            <td> ${m.author}</td>
-            <td> ${m.created}</td>
-            <td> ${m.content}</td>
-        </tr>
-        </c:forEach>
+    <c:choose>
+    <c:when test="${messages.size() == 0}">
+        Here are no messages yet.
+        <br>
+    </c:when>
+    </c:choose>
+        <c:forEach items="${messages}" var="m">
+    <table width="30%" border="1" cellpadding="7" cellspacing="0" bgcolor="#d3d3d3">
+        <c:choose>
+        <c:when test="${m.author.equals(userName)}">
+        <tr><td width="50%">${m.author}<span style="color:red"> (Advert's author)</span></td><td>${m.created}</td></tr>
+        </c:when>
+        <c:otherwise>
+        <tr><td width="50%">${m.author}</td><td>${m.created}</td></tr>
+        </c:otherwise>
+        </c:choose>
+        <tr><td colspan="2"> ${m.content}</td></tr>
+        <br>
+            </c:forEach>
     </table>
     <br>
     Add new message:
@@ -64,6 +71,7 @@
     <br>
     <input type="hidden" name="advertID" value=${advert.id}>
     <input type="hidden" name="author" value=${currentUser.username}>
+    <br>
     <input type="submit" value="Add"/>
     </form>
     <br>

@@ -21,6 +21,8 @@
     <br/>
     <form action="Controller" method="POST">
         <input type="hidden" name="command" value="OPEN_ADVERT_CREATE_PAGE">
+        <input type="hidden" name="sectionID" value="">
+
         <table style="with: 50%">
         </table>
         <input type="submit" value="Create new advert" />

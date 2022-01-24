@@ -32,7 +32,7 @@ public class AdvertServiceImpl implements AdvertService {
     public Advert createAdvert(AdvertCreateDTO dto) throws ServiceException {
         Advert advert = new Advert();
         try {
-            if (dto.getName() != null && dto.getName().length() < 46 && dto.getContent() != null && dto.getContent().length() < 46 && dto.getCost() > 0) {
+            if (dto.getName() != null && dto.getName().length() < 46 && dto.getContent() != null && dto.getCost() >= 0) {
                 advert = advertDAO.create(dto);
                 return advert;
             }
@@ -55,7 +55,7 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public void updateAdvert(AdvertUpdateDTO dto) throws ServiceException {
         try {
-            if (dto.getName() != null && dto.getName().length() < 46 && dto.getContent() != null && dto.getContent().length() < 46 && dto.getCost() > 0) {
+            if (dto.getName() != null && dto.getName().length() < 46 && dto.getContent() != null && dto.getCost() > 0) {
                 advertDAO.update(dto);
             }
         } catch (DAOException e) {

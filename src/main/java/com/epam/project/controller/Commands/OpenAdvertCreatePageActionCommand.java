@@ -20,15 +20,15 @@ public class OpenAdvertCreatePageActionCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String requestParameter = request.getParameter("sectionID");
-        if (requestParameter != null) {
+        if (!requestParameter.equals("")) {
             int sectionID = Integer.parseInt(requestParameter);
             try {
-                if (sectionID != 0) {
-                    request.getSession().setAttribute("sectionName", sectionService.getById(sectionID).get().getName());
-                }
+                request.getSession().setAttribute("sectionName", sectionService.getById(sectionID).get().getName());
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
+        } else {
+            request.getSession().setAttribute("sectionName","");
         }
         return ConfigurationManager.getProperty("path.page.advertCreate");
     }

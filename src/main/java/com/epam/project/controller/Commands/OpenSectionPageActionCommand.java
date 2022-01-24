@@ -24,7 +24,7 @@ public class OpenSectionPageActionCommand implements ActionCommand {
         try {
             request.getSession().setAttribute("advertsOfSection", advertService.getBySectionId(sectionID));
             request.getSession().setAttribute("sectionName", sectionService.getById(sectionID).get().getName());
-//            userService.setSessionAttributes(request, login);
+            request.getSession().setAttribute("sectionID", sectionID);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

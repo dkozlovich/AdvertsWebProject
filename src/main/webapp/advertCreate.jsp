@@ -25,9 +25,10 @@
     Section:
     <br/>
     <select name="sectionID" size="1">
+        <option value="" selected disabled hidden>Choose section</option>
         <c:forEach items="${sections}" var="s">
             <c:choose>
-                <c:when test="${s.name == sectionName}">
+                <c:when test="${s.name.equals(sectionName)}">
                     <option selected value=${s.id}>${s.name}</option>
                 </c:when>
                 <c:otherwise>
@@ -42,6 +43,7 @@
     <textarea name="content"></textarea>
     <br>
     <input type="hidden" name="userID" value=${currentUser.id}>
+    <br>
     <input type="submit" value="Create"/>
 </form>
 <button type="button" name="back" onclick="history.back()">Back</button>

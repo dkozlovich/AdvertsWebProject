@@ -17,7 +17,7 @@
     <style>
         textarea {
             width: 60%;
-            height: 50%;
+            height: 20%;
             resize: none;
         }
     </style>
@@ -27,7 +27,7 @@
     <select name="sectionID" size="1">
         <c:forEach items="${sections}" var="s">
             <c:choose>
-            <c:when test="${s.name == sectionName}">
+            <c:when test="${s.name.equals(sectionName)}">
                 <option selected value=${s.id}>${s.name}</option>
             </c:when>
             <c:otherwise>
@@ -40,6 +40,7 @@
     <textarea name="content">${advert.content}</textarea>
     <br>
     <input type="hidden" name="id" value=${advert.id}>
+    <br>
     <input type="submit" value="Update"/>
 </form>
 <button type="button" name="back" onclick="history.back()">Back</button>
