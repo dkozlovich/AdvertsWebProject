@@ -14,15 +14,15 @@ import java.util.Optional;
 
 public class SectionDAOImpl implements SectionDAO {
 
-    private final static String CREATE_SECTION = "INSERT INTO project.sections (name) values(?)";
+    private static final String CREATE_SECTION = "INSERT INTO project.sections (name) values(?)";
 
-    private final static String DELETE_SECTION = "DELETE FROM project.sections WHERE id=?";
+    private static final String DELETE_SECTION = "DELETE FROM project.sections WHERE id=?";
 
-    private final static String UPDATE_SECTION = "UPDATE project.sections SET name=? WHERE id=?";
+    private static final String UPDATE_SECTION = "UPDATE project.sections SET name=? WHERE id=?";
 
-    private final static String GET_ALL_SECTIONS = "SELECT * FROM project.sections";
+    private static final String GET_ALL_SECTIONS = "SELECT * FROM project.sections";
 
-    private final static String GET_BY_ID = "SELECT id, name FROM project.sections WHERE id=?";
+    private static final String GET_BY_ID = "SELECT id, name FROM project.sections WHERE id=?";
 
     private static final String GET_BY_NAME = "SELECT * FROM project.sections WHERE name=?";
 

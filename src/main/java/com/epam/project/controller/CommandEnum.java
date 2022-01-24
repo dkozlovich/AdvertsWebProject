@@ -21,7 +21,8 @@ public enum CommandEnum {
     OPEN_ADVERT(new OpenAdvertPageActionCommand()),
     OPEN_ADVERT_CREATE_PAGE(new OpenAdvertCreatePageActionCommand()),
     OPEN_ADVERTS_OF_USER(new OpenAdvertsOfUserActionCommand()),
-    OPEN_SECTION(new OpenSectionPageActionCommand());
+    OPEN_SECTION(new OpenSectionPageActionCommand()),
+    CREATE_MESSAGE(new CreateMessageActionCommand());
 
     ActionCommand command;
 

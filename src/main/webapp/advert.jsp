@@ -25,29 +25,51 @@
     <head>
         <meta charset="utf-8">
         <style>
-            textarea {
+            #advert {
                 width: 60%;
-                height: 50%;
+                height: 25%;
+                resize: none;
+            }
+            #message {
+                width: 30%;
+                height: 10%;
                 resize: none;
             }
         </style>
     </head>
     <body>
     <form>
-        <textarea readonly>${advert.content}</textarea>
+        <textarea id="advert" readonly>${advert.content}</textarea>
     </form>
     </body>
+    <h2>Messages:</h2>
+
+    <table >
+        <tr>
+            <th>Author</th></tf><th>Created</th><th>Content</th>
+            <c:forEach items="${messages}" var="m">
+        </tr>
+        <tr>
+            <td> ${m.author}</td>
+            <td> ${m.created}</td>
+            <td> ${m.content}</td>
+        </tr>
+        </c:forEach>
+    </table>
+    <br>
+    Add new message:
+    <form action="Controller" method="POST">
+    <input type="hidden" name="command" value="CREATE_MESSAGE">
+    <textarea id="message" name="content"></textarea>
+    <br>
+    <input type="hidden" name="advertID" value=${advert.id}>
+    <input type="hidden" name="author" value=${currentUser.username}>
+    <input type="submit" value="Add"/>
+    </form>
+    <br>
     <c:choose>
         <c:when test="${advert.userId == currentUser.id}">
             <form action="advertUpdate.jsp">
-<%--                <input type="hidden" name="id" value=${advert.id}>--%>
-<%--                <input type="hidden" name="sectionID" value=${advert.sectionId}>--%>
-<%--                <input type="hidden" name="name" value=${advert.name}>--%>
-<%--                <input type="hidden" name="content" value=${advert.content}>--%>
-<%--                <input type="hidden" name="cost" value=${advert.cost}>--%>
-                <table style="with: 50%">
-                </table>
-<%--                <input type="hidden" name="sectionName" value=${sectionName}>--%>
                 <input type="submit" value="Edit" />
             </form>
         </c:when>

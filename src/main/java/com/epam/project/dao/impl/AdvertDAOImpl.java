@@ -14,21 +14,21 @@ import java.util.Optional;
 
 public class AdvertDAOImpl implements AdvertDAO {
 
-    private final static String GET_ALL_ADVERTS = "SELECT * FROM project.adverts";
+    private static final String GET_ALL_ADVERTS = "SELECT * FROM project.adverts";
 
-    private final static String GET_ALL_BY_USER = "SELECT * FROM project.adverts WHERE userID=?";
+    private static final String GET_ALL_BY_USER = "SELECT * FROM project.adverts WHERE userID=?";
 
-    private final static String GET_BY_ID = "SELECT * FROM project.adverts WHERE id=?";
+    private static final String GET_BY_ID = "SELECT * FROM project.adverts WHERE id=?";
 
-    private final static String GET_BY_SECTIONID = "SELECT * FROM project.adverts WHERE sectionID=?";
+    private static final String GET_BY_SECTIONID = "SELECT * FROM project.adverts WHERE sectionID=?";
 
-    private final static String GET_BY_USERID = "SELECT * FROM project.adverts WHERE userID=?";
+    private static final String GET_BY_USERID = "SELECT * FROM project.adverts WHERE userID=?";
 
-    private final static String CREATE_ADVERT = "INSERT INTO project.adverts (sectionID,name,content,cost,created,modified,userID) values (?,?,?,?,?,?,?)";
+    private static final String CREATE_ADVERT = "INSERT INTO project.adverts (sectionID,name,content,cost,created,modified,userID) values (?,?,?,?,?,?,?)";
 
-    private final static String DELETE_ADVERT = "DELETE FROM project.adverts WHERE id=?";
+    private static final String DELETE_ADVERT = "DELETE FROM project.adverts WHERE id=?";
 
-    private final static String UPDATE_ADVERT = "UPDATE project.adverts SET sectionID=?, name=?, content=?, cost=?, modified=? WHERE id=?";
+    private static final String UPDATE_ADVERT = "UPDATE project.adverts SET sectionID=?, name=?, content=?, cost=?, modified=? WHERE id=?";
 
     private static AdvertDAO instance;
 

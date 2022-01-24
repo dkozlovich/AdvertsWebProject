@@ -6,6 +6,7 @@ import com.epam.project.controller.ActionCommand;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.service.AdvertService;
 
+import com.epam.project.service.MessageService;
 import com.epam.project.service.SectionService;
 import com.epam.project.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
 
     private UserService userService = InstanceProvider.getUserServiceImpl();
 
+    private MessageService messageService = InstanceProvider.getMessageServiceImpl();
+
     @Override
     public String execute(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -25,6 +28,7 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
             request.getSession().setAttribute("advert", advertService.getById(id));
             request.getSession().setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
             request.getSession().setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
+            request.getSession().setAttribute("messages", messageService.getByAdvertId(id));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
