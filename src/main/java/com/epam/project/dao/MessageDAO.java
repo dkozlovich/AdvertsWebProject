@@ -6,6 +6,6 @@ import com.epam.project.model.Message;
 import java.util.List;
 
 public interface MessageDAO {
-    Message create(String content, String author, int advertId) throws DAOException;
+    Message create(String content, int userId, int advertId) throws DAOException;
     List<Message> getByAdvertId(int advertId) throws DAOException;
 }

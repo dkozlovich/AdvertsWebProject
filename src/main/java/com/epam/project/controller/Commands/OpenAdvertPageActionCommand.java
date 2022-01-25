@@ -28,7 +28,7 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
             request.getSession().setAttribute("advert", advertService.getById(id));
             request.getSession().setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
             request.getSession().setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
-            request.getSession().setAttribute("messages", messageService.getByAdvertId(id));
+            request.getSession().setAttribute("messages", messageService.findByAdvertId(id));
         } catch (ServiceException e) {
             e.printStackTrace();
         }

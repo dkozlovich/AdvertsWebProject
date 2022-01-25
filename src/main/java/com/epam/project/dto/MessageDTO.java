@@ -1,11 +1,11 @@
-package com.epam.project.model;
+package com.epam.project.dto;
 
 import java.sql.Timestamp;
 
-public class Message {
+public class MessageDTO {
     private int id;
     private int advertId;
-    private int userId;
+    private UserDTO userDTO;
     private String content;
     private Timestamp created;
 
@@ -25,12 +25,12 @@ public class Message {
         this.advertId = advertId;
     }
 
-    public int getUserId() {
-        return userId;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     public String getContent() {

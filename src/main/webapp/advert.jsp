@@ -52,11 +52,11 @@
         <c:forEach items="${messages}" var="m">
     <table width="30%" border="1" cellpadding="7" cellspacing="0" bgcolor="#d3d3d3">
         <c:choose>
-        <c:when test="${m.author.equals(userName)}">
-        <tr><td width="50%">${m.author}<span style="color:red"> (Advert's author)</span></td><td>${m.created}</td></tr>
+        <c:when test="${m.userDTO.id == advert.userId}">
+        <tr><td width="50%">${m.userDTO.username}<span style="color:red"> (Advert's author)</span></td><td>${m.created}</td></tr>
         </c:when>
         <c:otherwise>
-        <tr><td width="50%">${m.author}</td><td>${m.created}</td></tr>
+        <tr><td width="50%">${m.userDTO.username}</td><td>${m.created}</td></tr>
         </c:otherwise>
         </c:choose>
         <tr><td colspan="2"> ${m.content}</td></tr>
@@ -70,7 +70,7 @@
     <textarea id="message" name="content"></textarea>
     <br>
     <input type="hidden" name="advertID" value=${advert.id}>
-    <input type="hidden" name="author" value=${currentUser.username}>
+    <input type="hidden" name="userID" value=${currentUser.id}>
     <br>
     <input type="submit" value="Add"/>
     </form>

@@ -24,19 +24,19 @@ public class MessageDAOImpl implements MessageDAO {
         return instance;
     }
 
-    private static final String CREATE_MESSAGE = "INSERT INTO project.messages (advertID, author, content, created) values (?,?,?,?)";
+    private static final String CREATE_MESSAGE = "INSERT INTO project.messages (advertID, userID, content, created) values (?,?,?,?)";
 
     private static final String GET_BY_ADVERTID = "SELECT * FROM project.messages WHERE advertID=?";
 
     @Override
-    public Message create(String content, String author, int advertId) throws DAOException {
+    public Message create(String content, int userId, int advertId) throws DAOException {
         Message message = new Message();
         int id = 0;
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try (Connection con = ConnectionPool.getInstance().getConnection();
              PreparedStatement stmt = con.prepareStatement(CREATE_MESSAGE, Statement.RETURN_GENERATED_KEYS);) {
             stmt.setInt(1, advertId);
-            stmt.setString(2, author);
+            stmt.setInt(2, userId);
             stmt.setString(3, content);
             stmt.setTimestamp(4, timestamp);
             int affectedRows = stmt.executeUpdate();
@@ -48,7 +48,7 @@ public class MessageDAOImpl implements MessageDAO {
             }
             message.setId(id);
             message.setAdvertId(advertId);
-            message.setAuthor(author);
+            message.setUserId(userId);
             message.setContent(content);
             message.setCreated(timestamp);
             return message;
@@ -68,7 +68,7 @@ public class MessageDAOImpl implements MessageDAO {
                 Message message = new Message();
                 message.setId(rs.getInt(1));
                 message.setAdvertId(rs.getInt(2));
-                message.setAuthor(rs.getString(3));
+                message.setUserId(rs.getInt(3));
                 message.setContent(rs.getString(4));
                 message.setCreated(rs.getTimestamp(5));
                 list.add(message);
