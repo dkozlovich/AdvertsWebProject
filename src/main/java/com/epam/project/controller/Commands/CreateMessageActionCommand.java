@@ -21,7 +21,7 @@ public class CreateMessageActionCommand implements ActionCommand {
         try {
             if (request.getSession().getAttribute("currentUser") != null) {
                 messageService.createMessage(content, userId, advertId);
-                request.getSession().setAttribute("messages", messageService.findByAdvertId(advertId));
+                request.getSession().setAttribute("messages", messageService.findByAdvertId(advertId, 1, 3));
                 page = ConfigurationManager.getProperty("path.page.advert");
             }
         } catch (ServiceException e) {

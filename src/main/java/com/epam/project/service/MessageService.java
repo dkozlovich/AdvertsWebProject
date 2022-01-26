@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface MessageService {
     Message createMessage(String content, int userId, int advertId) throws ServiceException;
-    List<Message> getByAdvertId(int advertId) throws ServiceException;
-    List<MessageDTO> findByAdvertId(int advertId) throws ServiceException;
+
+    List<MessageDTO> findByAdvertId(int advertId, int offset, int limit) throws ServiceException;
+
+    int findTotalMessagesNumber(int advertId) throws ServiceException;
 }

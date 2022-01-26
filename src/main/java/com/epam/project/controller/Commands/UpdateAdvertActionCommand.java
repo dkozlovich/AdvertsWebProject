@@ -37,7 +37,7 @@ public class UpdateAdvertActionCommand implements ActionCommand {
             request.getSession().setAttribute("advert", advertService.getById(id));
             request.getSession().setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
             request.getSession().setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
-            request.getSession().setAttribute("messages", messageService.getByAdvertId(id));
+            request.getSession().setAttribute("messages", messageService.findByAdvertId(id, 1, 3));
             page = ConfigurationManager.getProperty("path.page.advert");
         } catch (ServiceException e) {
             e.printStackTrace();

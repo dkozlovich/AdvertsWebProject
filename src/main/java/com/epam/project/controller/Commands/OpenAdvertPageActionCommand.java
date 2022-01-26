@@ -3,15 +3,21 @@ package com.epam.project.controller.Commands;
 import com.epam.project.ConfigurationManager;
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.ActionCommand;
+import com.epam.project.dto.MessageDTO;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.service.AdvertService;
-
 import com.epam.project.service.MessageService;
 import com.epam.project.service.SectionService;
 import com.epam.project.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 public class OpenAdvertPageActionCommand implements ActionCommand {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private AdvertService advertService = InstanceProvider.getAdvertServiceImpl();
 
@@ -23,13 +29,24 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
+        int page = 1;
+        int recordsPerPage = 3;
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
         int id = Integer.parseInt(request.getParameter("id"));
         try {
+            List<MessageDTO> messages = messageService.findByAdvertId(id,(page-1) * recordsPerPage, recordsPerPage);
+            int totalMessagesNumber = messageService.findTotalMessagesNumber(id);
+            int noOfPages = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
             request.getSession().setAttribute("advert", advertService.getById(id));
             request.getSession().setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
             request.getSession().setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
-            request.getSession().setAttribute("messages", messageService.findByAdvertId(id));
+            request.getSession().setAttribute("messages", messages);
+            request.getSession().setAttribute("noOfPages", noOfPages);
+            request.getSession().setAttribute("currentPage", page);
         } catch (ServiceException e) {
+            LOGGER.error(e);
             e.printStackTrace();
         }
         return ConfigurationManager.getProperty("path.page.advert");

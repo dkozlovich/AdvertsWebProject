@@ -48,19 +48,10 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> getByAdvertId(int advertId) throws ServiceException {
-        try {
-            return messageDAO.getByAdvertId(advertId);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public List<MessageDTO> findByAdvertId(int advertId) throws ServiceException {
+    public List<MessageDTO> findByAdvertId(int advertId, int offset, int limit) throws ServiceException {
         try {
             List<MessageDTO> result = new ArrayList<>();
-            List<Message> messages = messageDAO.getByAdvertId(advertId);
+            List<Message> messages = messageDAO.getByAdvertId(advertId, offset, limit);
             for (Message entity : messages) {
                 MessageDTO messageDTO = new MessageDTO();
                 messageDTO.setId(entity.getId());
@@ -73,6 +64,15 @@ public class MessageServiceImpl implements MessageService {
                 result.add(messageDTO);
             }
             return result;
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int findTotalMessagesNumber(int advertId) throws ServiceException {
+        try {
+            return messageDAO.findTotalMessagesNumber(advertId);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
