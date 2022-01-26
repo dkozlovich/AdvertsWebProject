@@ -4,7 +4,6 @@ import com.epam.project.ConfigurationManager;
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.ActionCommand;
 import com.epam.project.exception.ServiceException;
-import com.epam.project.model.Message;
 import com.epam.project.service.MessageService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -15,18 +14,21 @@ public class CreateMessageActionCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
-        int advertId = Integer.parseInt(request.getParameter("advertID"));
-        int userId = Integer.parseInt(request.getParameter("userID"));
-        String content = request.getParameter("content");
-        try {
-            if (request.getSession().getAttribute("currentUser") != null) {
-                messageService.createMessage(content, userId, advertId);
-                request.getSession().setAttribute("messages", messageService.findByAdvertId(advertId, 1, 3));
-                page = ConfigurationManager.getProperty("path.page.advert");
+        int recordsPerPage = 3;
+            int advertId = Integer.parseInt(request.getParameter("advertID"));
+            int userId = Integer.parseInt(request.getParameter("userID"));
+            String content = request.getParameter("content");
+            try {
+                if (request.getSession().getAttribute("currentUser") != null) {
+                    messageService.createMessage(content, userId, advertId);
+                    int totalMessagesNumber = messageService.findTotalMessagesNumber(advertId);
+                    int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
+                    page = "/Controller?command=OPEN_ADVERT&id=" + advertId + "&page=" + totalPagesNumber;
+
+                }
+            } catch (ServiceException e) {
+                e.printStackTrace();
             }
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
         return page;
     }
 }

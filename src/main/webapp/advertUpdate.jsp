@@ -16,8 +16,8 @@
     <input type="text" name="cost" value=${advert.cost} />
     <style>
         textarea {
-            width: 60%;
-            height: 20%;
+            width: 40%;
+            height: 10%;
             resize: none;
         }
     </style>

@@ -38,12 +38,12 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
         try {
             List<MessageDTO> messages = messageService.findByAdvertId(id,(page-1) * recordsPerPage, recordsPerPage);
             int totalMessagesNumber = messageService.findTotalMessagesNumber(id);
-            int noOfPages = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
+            int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
             request.getSession().setAttribute("advert", advertService.getById(id));
             request.getSession().setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
             request.getSession().setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
             request.getSession().setAttribute("messages", messages);
-            request.getSession().setAttribute("noOfPages", noOfPages);
+            request.getSession().setAttribute("totalPagesNumber", totalPagesNumber);
             request.getSession().setAttribute("currentPage", page);
         } catch (ServiceException e) {
             LOGGER.error(e);
