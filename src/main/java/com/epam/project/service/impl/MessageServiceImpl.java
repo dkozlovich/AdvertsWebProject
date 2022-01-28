@@ -70,7 +70,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public int findTotalMessagesNumber(int advertId) throws ServiceException {
+    public int getTotalMessagesNumber(int advertId) throws ServiceException {
         try {
             return messageDAO.findTotalMessagesNumber(advertId);
         } catch (DAOException e) {

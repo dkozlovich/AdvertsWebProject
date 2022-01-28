@@ -11,5 +11,5 @@ public interface MessageService {
 
     List<MessageDTO> findByAdvertId(int advertId, int offset, int limit) throws ServiceException;
 
-    int findTotalMessagesNumber(int advertId) throws ServiceException;
+    int getTotalMessagesNumber(int advertId) throws ServiceException;
 }

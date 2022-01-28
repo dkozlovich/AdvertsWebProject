@@ -26,7 +26,7 @@ public class MessageDAOImpl implements MessageDAO {
 
     private static final String CREATE_MESSAGE = "INSERT INTO project.messages (advertID, userID, content, created) values (?,?,?,?)";
 
-    private static final String FIND_BY_ADVERTID = "SELECT * FROM project.messages WHERE advertID=? LIMIT ?,?";
+    private static final String GET_BY_ADVERTID = "SELECT * FROM project.messages WHERE advertID=? LIMIT ?,?";
 
     private static final String FIND_TOTAL_MESSAGES_NUMBER = "SELECT COUNT(*) FROM project.messages WHERE advertID=?";
 
@@ -63,7 +63,7 @@ public class MessageDAOImpl implements MessageDAO {
     public List<Message> getByAdvertId(int advertId, int offset, int limit) throws DAOException {
         List<Message> list = new ArrayList<>();
         try (Connection con = ConnectionPool.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(FIND_BY_ADVERTID)) {
+             PreparedStatement stmt = con.prepareStatement(GET_BY_ADVERTID)) {
             stmt.setInt(1, advertId);
             stmt.setInt(2, offset);
             stmt.setInt(3, limit);

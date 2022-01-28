@@ -1,6 +1,5 @@
 package com.epam.project.controller.Commands;
 
-import com.epam.project.ConfigurationManager;
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.ActionCommand;
 import com.epam.project.exception.ServiceException;
@@ -21,7 +20,7 @@ public class CreateMessageActionCommand implements ActionCommand {
             try {
                 if (request.getSession().getAttribute("currentUser") != null) {
                     messageService.createMessage(content, userId, advertId);
-                    int totalMessagesNumber = messageService.findTotalMessagesNumber(advertId);
+                    int totalMessagesNumber = messageService.getTotalMessagesNumber(advertId);
                     int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
                     page = "/Controller?command=OPEN_ADVERT&id=" + advertId + "&page=" + totalPagesNumber;
 
