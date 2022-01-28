@@ -12,7 +12,7 @@ public interface AdvertService {
     void deleteAdvert(int id) throws ServiceException;
     void updateAdvert(AdvertUpdateDTO dto) throws ServiceException;
     List<Advert> getAll() throws ServiceException;
-    List<Advert> getBySectionId(int sectionId) throws ServiceException;
+    List<Advert> getBySectionId(int sectionId, int offset, int limit) throws ServiceException;
     Advert getById(int id) throws ServiceException;
     List<Advert> getAllByUser(int id) throws ServiceException;
     int getTotalAdvertsOfSectionNumber(int sectionId) throws ServiceException;

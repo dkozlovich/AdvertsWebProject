@@ -73,9 +73,9 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public List<Advert> getBySectionId(int sectionId) throws ServiceException {
+    public List<Advert> getBySectionId(int sectionId, int offset, int limit) throws ServiceException {
         try {
-            return advertDAO.getBySectionId(sectionId);
+            return advertDAO.getBySectionId(sectionId, offset, limit);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

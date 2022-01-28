@@ -20,11 +20,11 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String GET_BY_ID = "SELECT * FROM project.adverts WHERE id=?";
 
-    private static final String GET_BY_SECTIONID = "SELECT * FROM project.adverts WHERE sectionID=?";
+    private static final String GET_BY_SECTION_ID = "SELECT * FROM project.adverts WHERE sectionID=? LIMIT ?,?";
 
     private static final String GET_TOTAL_ADVERTS_OF_SECTION_NUMBER = "SELECT COUNT(*) FROM project.adverts WHERE sectionID=?";
 
-    private static final String GET_BY_USERID = "SELECT * FROM project.adverts WHERE userID=?";
+    private static final String GET_BY_USER_ID = "SELECT * FROM project.adverts WHERE userID=?";
 
     private static final String CREATE_ADVERT = "INSERT INTO project.adverts (sectionID,name,content,cost,created,modified,userID) values (?,?,?,?,?,?,?)";
 
@@ -153,11 +153,13 @@ public class AdvertDAOImpl implements AdvertDAO {
     }
 
     @Override
-    public List<Advert> getBySectionId(int sectionId) throws DAOException {
+    public List<Advert> getBySectionId(int sectionId, int offset, int limit) throws DAOException {
         List<Advert> list = new ArrayList<>();
         try (Connection con = ConnectionPool.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(GET_BY_SECTIONID);){
+             PreparedStatement stmt = con.prepareStatement(GET_BY_SECTION_ID);){
             stmt.setInt(1,sectionId);
+            stmt.setInt(2,offset);
+            stmt.setInt(3,limit);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(mapAdvert(rs));

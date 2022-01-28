@@ -96,6 +96,7 @@
         <br>
     </c:if>
     <br>
+
     Add new message:
     <form action="Controller" method="POST">
     <input type="hidden" name="command" value="CREATE_MESSAGE">

@@ -13,7 +13,7 @@
     <c:forEach items="${sections}" var="s">
         <tr>
             <td> <a href="?command=OPEN_SECTION&sectionID=${s.id}" > ${s.name}</a> </td>
-            <td width="10%">${adverts.getBySectionId(s.id).size()}</td>
+            <td width="10%">${adverts.getTotalAdvertsOfSectionNumber(s.id)}</td>
         </tr>
     </c:forEach>
     </table>
