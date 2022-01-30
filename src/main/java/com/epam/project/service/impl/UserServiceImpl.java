@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
     public void setSessionAttributes(HttpServletRequest request, String login) throws ServiceException {
         try {
             HttpSession session = request.getSession();
-            session.setAttribute("user", login);
+//            session.setAttribute("user", login);
             session.setAttribute("users", userDAO.getAllUsers());
             session.setAttribute("adverts", advertDAO);
         } catch (DAOException e) {
