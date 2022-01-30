@@ -21,6 +21,7 @@ public class UpdateSectionActionCommand implements ActionCommand {
         dto.setName(request.getParameter("name"));
         try {
             sectionService.update(dto);
+            request.getSession().setAttribute("sections", sectionService.getAll());
             page = ConfigurationManager.getProperty("path.page.admin");
         } catch (ServiceException e) {
             e.printStackTrace();

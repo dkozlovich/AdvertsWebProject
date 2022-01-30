@@ -40,6 +40,14 @@
                     <input type="submit" value="Delete" />
                 </form>
             </td>
+            <td>
+                <form action="Controller" method="POST">
+                    <input type="hidden" name="command" value="UPDATE_SECTION">
+                    <input type="hidden" name="id" value="${u.id}">
+                    <input type="text" name="name" value="${u.name}">
+                    <input type="submit" value="Update" />
+                </form>
+            </td>
         </tr>
     </table>
 </c:forEach>
