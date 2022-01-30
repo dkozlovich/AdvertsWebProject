@@ -10,7 +10,8 @@
     Section: ${sectionName}
     <br/>
     Author:
-    <a href="?command=OPEN_ADVERTS_OF_USER&userID=${advert.userId}&userName=${userName}" >${userName} </a>
+    ${userName}
+    <a href="?command=OPEN_ADVERTS_OF_USER&userID=${advert.userId}&userName=${userName}" > (find all adverts of author)</a>
     <br/>
     Cost: ${advert.cost}
     <br/>
@@ -53,6 +54,7 @@
         <table width="30%" border="1" cellpadding="7" cellspacing="0" bgcolor="#d3d3d3" style="margin-top: 10px">
         <c:choose>
         <c:when test="${m.userDTO.id == advert.userId}">
+
         <tr><td width="50%">${m.userDTO.username}<span style="color:red"> (Advert's author)</span></td><td>${m.created}</td></tr>
         </c:when>
         <c:otherwise>

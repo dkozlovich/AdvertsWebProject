@@ -27,7 +27,6 @@ public class CreateAdvertActionCommand implements ActionCommand {
                 advertService.createAdvert(dto);
                 request.getSession().setAttribute("adverts", advertService);
                 page = ConfigurationManager.getProperty("path.page.main");
-
             }
         } catch (ServiceException e) {
             e.printStackTrace();
