@@ -136,7 +136,7 @@
         <input type="hidden" name="sectionID" value=${advert.sectionId}>
         <table style="with: 50%">
         </table>
-        <input type="submit" value="Back to adverts" />
+        <input type="submit" value="Back to section" />
     </form>
 </body>
 </html>

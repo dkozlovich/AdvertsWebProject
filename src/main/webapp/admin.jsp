@@ -10,7 +10,7 @@
     <table border="1">
         <tr>
             <td>${u.id}</td>
-            <td>${u.username}</td>
+            <td><a href="?command=OPEN_ADVERTS_OF_USER&userID=${u.id}&userName=${u.username}"> ${u.username}</a></td>
             <td>${u.password}</td>
             <td><input type="button" value="Delete"></td>
         </tr>
@@ -26,15 +26,15 @@
 </form>
 <hr>
 <caption>Sections</caption>
-<c:forEach items="${sections}" var="u">
+<c:forEach items="${sections}" var="s">
     <table border="1">
         <tr>
-            <td>${u.id}</td>
-            <td>${u.name}</td>
+            <td>${s.id}</td>
+            <td><a href="?command=OPEN_SECTION&sectionID=${s.id}" > ${s.name}</a></td>
             <td>
                 <form action="Controller" method="POST">
                     <input type="hidden" name="command" value="DELETE_SECTION">
-                    <input type="hidden" name="id" value="${u.id}">
+                    <input type="hidden" name="id" value="${s.id}">
                     <table style="with: 50%">
                     </table>
                     <input type="submit" value="Delete" />
@@ -43,8 +43,8 @@
             <td>
                 <form action="Controller" method="POST">
                     <input type="hidden" name="command" value="UPDATE_SECTION">
-                    <input type="hidden" name="id" value="${u.id}">
-                    <input type="text" name="name" value="${u.name}">
+                    <input type="hidden" name="id" value="${s.id}">
+                    <input type="text" name="name" value="${s.name}">
                     <input type="submit" value="Update" />
                 </form>
             </td>

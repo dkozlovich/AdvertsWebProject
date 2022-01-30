@@ -28,11 +28,6 @@
     </c:forEach>
 </table>
 <br/>
-<form action="Controller" method="POST">
-    <input type="hidden" name="command" value="OPEN_MAIN_PAGE">
-    <table style="with: 50%">
-    </table>
-    <input type="submit" value="Back to sections" />
-</form>
+    <button type="button" name="back" onclick="history.back()">Back</button>
 </body>
 </html>
