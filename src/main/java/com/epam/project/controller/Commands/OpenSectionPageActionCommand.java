@@ -31,7 +31,7 @@ public class OpenSectionPageActionCommand implements ActionCommand {
         int sectionID = Integer.parseInt(request.getParameter("sectionID"));
         try {
             List<Advert> advertsOfSection = advertService.getBySectionId(sectionID, (page - 1) * recordsPerPage, recordsPerPage);
-            int totalAdvertsOfSectionNumber = advertService.getTotalAdvertsOfSectionNumber(sectionID);
+            int totalAdvertsOfSectionNumber = sectionService.getTotalAdvertsOfSectionNumber(sectionID);
             int totalPagesNumber = (int) Math.ceil(totalAdvertsOfSectionNumber * 1.0 / recordsPerPage);
             request.getSession().setAttribute("advertsOfSection", advertsOfSection);
             request.getSession().setAttribute("sectionName", sectionService.getById(sectionID).get().getName());

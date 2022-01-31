@@ -22,8 +22,6 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String GET_BY_SECTION_ID = "SELECT * FROM project.adverts WHERE sectionID=? LIMIT ?,?";
 
-    private static final String GET_TOTAL_ADVERTS_OF_SECTION_NUMBER = "SELECT COUNT(*) FROM project.adverts WHERE sectionID=?";
-
     private static final String GET_BY_USER_ID = "SELECT * FROM project.adverts WHERE userID=?";
 
     private static final String CREATE_ADVERT = "INSERT INTO project.adverts (sectionID,name,content,cost,created,modified,userID) values (?,?,?,?,?,?,?)";
@@ -168,22 +166,6 @@ public class AdvertDAOImpl implements AdvertDAO {
             throw new DAOException(e);
         }
         return list;
-    }
-
-    @Override
-    public int getTotalAdvertsOfSectionNumber(int sectionId) throws DAOException {
-        int result = 0;
-        try (Connection con = ConnectionPool.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(GET_TOTAL_ADVERTS_OF_SECTION_NUMBER);){
-            stmt.setInt(1,sectionId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                result = rs.getInt(1);
-            }
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        return result;
     }
 
     private Advert mapAdvert(ResultSet resultset) throws SQLException {

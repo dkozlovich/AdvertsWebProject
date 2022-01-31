@@ -83,4 +83,13 @@ public class SectionServiceImpl implements SectionService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public int getTotalAdvertsOfSectionNumber(int sectionId) throws ServiceException {
+        try {
+            return sectionDAO.getTotalAdvertsOfSectionNumber(sectionId);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

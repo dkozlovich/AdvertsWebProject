@@ -15,5 +15,4 @@ public interface AdvertService {
     List<Advert> getBySectionId(int sectionId, int offset, int limit) throws ServiceException;
     Advert getById(int id) throws ServiceException;
     List<Advert> getAllByUser(int id) throws ServiceException;
-    int getTotalAdvertsOfSectionNumber(int sectionId) throws ServiceException;
 }

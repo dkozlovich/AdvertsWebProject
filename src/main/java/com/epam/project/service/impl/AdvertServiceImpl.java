@@ -98,13 +98,4 @@ public class AdvertServiceImpl implements AdvertService {
             throw new ServiceException(e);
         }
     }
-
-    @Override
-    public int getTotalAdvertsOfSectionNumber(int sectionId) throws ServiceException {
-        try {
-            return advertDAO.getTotalAdvertsOfSectionNumber(sectionId);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-    }
 }

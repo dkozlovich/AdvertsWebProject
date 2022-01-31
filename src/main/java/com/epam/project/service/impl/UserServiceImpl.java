@@ -4,6 +4,7 @@ import com.epam.project.InstanceProvider;
 import com.epam.project.dao.AdvertDAO;
 import com.epam.project.dao.SectionDAO;
 import com.epam.project.dao.UserDAO;
+import com.epam.project.dto.SectionDTO;
 import com.epam.project.dto.UserDTO;
 import com.epam.project.exception.DAOException;
 import com.epam.project.exception.EntityAlreadyExistException;
@@ -110,9 +111,7 @@ public class UserServiceImpl implements UserService {
     public void setSessionAttributes(HttpServletRequest request, String login) throws ServiceException {
         try {
             HttpSession session = request.getSession();
-//            session.setAttribute("user", login);
             session.setAttribute("users", userDAO.getAllUsers());
-            session.setAttribute("adverts", advertDAO);
         } catch (DAOException e) {
             throw new ServiceException();
         }
