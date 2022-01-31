@@ -23,8 +23,6 @@ public class LoginActionCommand implements ActionCommand {
 
     private UserService userService = InstanceProvider.getUserServiceImpl();
 
-    private SectionService sectionService = InstanceProvider.getSectionServiceImpl();
-
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
@@ -35,12 +33,7 @@ public class LoginActionCommand implements ActionCommand {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("currentUser");
             session.setAttribute("currentUser", user);
-            List<SectionDTO> sectionsDTO = new ArrayList<>();
-            List<Section> sections = sectionService.getAll();
-            for (Section section : sections){
-                sectionsDTO.add(DTOMapper.mapSection(section));
-            }
-            session.setAttribute("sections", sectionsDTO);
+            userService.setSessionAttributes(request);
             if (user.isAdmin()) {
                 page = "/Controller?command=OPEN_ADMIN_PAGE";
 

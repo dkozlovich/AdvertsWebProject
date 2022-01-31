@@ -15,10 +15,9 @@ public class OpenAdminPageActionCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String login = request.getParameter("login");
         String page = ConfigurationManager.getProperty("path.page.admin");
         try {
-            userService.setSessionAttributes(request, login);
+            userService.setSessionAttributes(request);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

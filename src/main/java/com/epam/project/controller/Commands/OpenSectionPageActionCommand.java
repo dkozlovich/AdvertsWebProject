@@ -15,8 +15,6 @@ import java.util.List;
 
 public class OpenSectionPageActionCommand implements ActionCommand {
 
-    private UserService userService = InstanceProvider.getUserServiceImpl();
-
     private AdvertService advertService = InstanceProvider.getAdvertServiceImpl();
 
     private SectionService sectionService = InstanceProvider.getSectionServiceImpl();

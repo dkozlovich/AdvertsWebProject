@@ -2,14 +2,24 @@ package com.epam.project.controller.Commands;
 
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.ActionCommand;
+import com.epam.project.dto.SectionDTO;
 import com.epam.project.exception.ServiceException;
+import com.epam.project.model.Section;
 import com.epam.project.service.AdvertService;
 
+import com.epam.project.service.SectionService;
+import com.epam.project.service.UserService;
+import com.epam.project.util.DTOMapper;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeleteAdvertActionCommand implements ActionCommand {
 
     private AdvertService advertService = InstanceProvider.getAdvertServiceImpl();
+
+    private UserService userService = InstanceProvider.getUserServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -19,7 +29,7 @@ public class DeleteAdvertActionCommand implements ActionCommand {
         try {
             if (request.getSession().getAttribute("currentUser") != null) {
                 advertService.deleteAdvert(id);
-                request.getSession().setAttribute("adverts", advertService);
+                userService.setSessionAttributes(request);
                 page = "/Controller?command=OPEN_SECTION&sectionID=" + sectionID;
             }
         } catch (ServiceException e) {

@@ -12,6 +12,6 @@ public interface UserService {
     User getById(int id) throws ServiceException;
     boolean checkLogin(String enterLogin, String enterPass) throws ServiceException;
     void loginUser(HttpServletRequest request, String login, String password) throws ServiceException;
-    void setSessionAttributes(HttpServletRequest request, String login) throws ServiceException;
+    void setSessionAttributes(HttpServletRequest request) throws ServiceException;
     List<UserDTO> getAllUser() throws ServiceException;
 }

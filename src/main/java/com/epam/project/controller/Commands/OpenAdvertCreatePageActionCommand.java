@@ -11,10 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class OpenAdvertCreatePageActionCommand implements ActionCommand {
 
-    private UserService userService = InstanceProvider.getUserServiceImpl();
-
-    private AdvertService advertService = InstanceProvider.getAdvertServiceImpl();
-
     private SectionService sectionService = InstanceProvider.getSectionServiceImpl();
 
     @Override

@@ -10,8 +10,11 @@ import com.epam.project.exception.DAOException;
 import com.epam.project.exception.EntityAlreadyExistException;
 import com.epam.project.exception.IncorrectLoginOrPassException;
 import com.epam.project.exception.ServiceException;
+import com.epam.project.model.Section;
 import com.epam.project.model.User;
+import com.epam.project.service.SectionService;
 import com.epam.project.service.UserService;
+import com.epam.project.util.DTOMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -27,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private SectionDAO sectionDAO = InstanceProvider.getSectionDAOImpl();
 
     private AdvertDAO advertDAO = InstanceProvider.getAdvertDAOImpl();
+
+    private SectionService sectionService = InstanceProvider.getSectionServiceImpl();
 
     private UserServiceImpl() {
 
@@ -108,10 +113,16 @@ public class UserServiceImpl implements UserService {
                 .setAdmin(user.isAdmin());
     }
 
-    public void setSessionAttributes(HttpServletRequest request, String login) throws ServiceException {
+    public void setSessionAttributes(HttpServletRequest request) throws ServiceException {
         try {
             HttpSession session = request.getSession();
             session.setAttribute("users", userDAO.getAllUsers());
+            List<SectionDTO> sectionsDTO = new ArrayList<>();
+            List<Section> sections = sectionService.getAll();
+            for (Section section : sections){
+                sectionsDTO.add(DTOMapper.mapSection(section));
+            }
+            session.setAttribute("sections", sectionsDTO);
         } catch (DAOException e) {
             throw new ServiceException();
         }
