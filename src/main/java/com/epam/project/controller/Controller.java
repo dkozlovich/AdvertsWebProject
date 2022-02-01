@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class Controller extends HttpServlet {
 
@@ -21,6 +22,7 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String page = null;
+        request.getSession().setAttribute("locale", Locale.forLanguageTag("ru"));
         String command = request.getParameter("command").toUpperCase();
         ActionCommand actionCommand = ActionResolver.defineCommand(command);
         try {

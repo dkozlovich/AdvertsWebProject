@@ -10,7 +10,7 @@
         </Console>
 <!--        <RollingFile name="file" fileName="logs/logFile.log" append="true"-->
 <!--                     filePattern="logs/%d{yyyy-MM-dd}.log">-->
-<!--            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t]   %c{1} - %msg%n"/>-->
+<!--            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t]   %c{locale_ru.properties} - %msg%n"/>-->
 <!--            <Policies>-->
 <!--                <TimeBasedTriggeringPolicy/>-->
 <!--                <SizeBasedTriggeringPolicy size="1000 KB"/>-->

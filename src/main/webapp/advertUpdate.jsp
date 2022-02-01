@@ -1,17 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <html>
-<head>
-    <title>Update advert</title>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locale" var="lang"/>
+    <title><fmt:message key="Update_advert" bundle="${lang}"></fmt:message></title>
 </head>
 <body>
 <form name = "UpdateAdvertForm" method="POST" action="Controller">
     <input type="hidden" name="command" value="UPDATE_ADVERT">
-    Name:<br/>
+    <fmt:message key="Name" bundle="${lang}"></fmt:message>:
+    <br/>
     <input type="text" name="name" value=${advert.name} />
     <br/>
-    Cost:
+    <fmt:message key="Cost" bundle="${lang}"></fmt:message>:
     <br/>
     <input type="text" name="cost" value=${advert.cost} />
     <style>
@@ -22,7 +26,7 @@
         }
     </style>
     <br>
-    Section:
+    <fmt:message key="Section" bundle="${lang}"></fmt:message>:
     <br/>
     <select name="sectionID" size="1">
         <c:forEach items="${sections}" var="s">
@@ -41,8 +45,8 @@
     <br>
     <input type="hidden" name="id" value=${advert.id}>
     <br>
-    <input type="submit" value="Update"/>
+    <input type="submit" value="<fmt:message key="Update" bundle="${lang}"></fmt:message>"/>
 </form>
-<button type="button" name="back" onclick="history.back()">Back</button>
+<button type="button" name="back" onclick="history.back()"><fmt:message key="Back" bundle="${lang}"></fmt:message></button>
 </body>
 </html>

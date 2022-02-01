@@ -1,15 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locale" var="lang"/>
 <head>
-    <title>Adverts</title>
+    <title><fmt:message key="Section" bundle="${lang}"></fmt:message> ${sectionName}</title>
 </head>
 <body>
 <h1> ${sectionName} </h1>
 <table width="35%" border="1" cellpadding="7" cellspacing="0">
     <tr>
-        <th>Name</th></tf><th>Cost</th><th>Created</th><th>Modified</th>
+        <th><fmt:message key="Name" bundle="${lang}"></fmt:message></th></tf><th><fmt:message key="Cost" bundle="${lang}"></fmt:message></th>
+        <th><fmt:message key="Created" bundle="${lang}"></fmt:message></th><th><fmt:message key="Modified" bundle="${lang}"></fmt:message></th>
         <c:forEach items="${advertsOfSection}" var="a">
     </tr>
         <tr>
@@ -37,7 +41,7 @@
 
 <%--For displaying Previous link except for the 1st page --%>
 <c:if test="${currentPage != 1}">
-    <td><a href="?command=OPEN_SECTION&sectionID=${sectionID}&page=${currentPage - 1}">Previous</a></td>
+    <td><a href="?command=OPEN_SECTION&sectionID=${sectionID}&page=${currentPage - 1}"><fmt:message key="Previous_page" bundle="${lang}"></fmt:message></a></td>
 </c:if>
 
 <%--For displaying Page numbers.
@@ -63,7 +67,7 @@ The when condition does not display a link for the current page--%>
 
 <%--For displaying Next link --%>
 <c:if test="${currentPage < totalPagesNumber}">
-    <td><a href="?command=OPEN_SECTION&sectionID=${sectionID}&page=${currentPage + 1}">Next</a></td>
+    <td><a href="?command=OPEN_SECTION&sectionID=${sectionID}&page=${currentPage + 1}"><fmt:message key="Next_page" bundle="${lang}"></fmt:message></a></td>
     <br>
 </c:if>
 <br>
@@ -72,16 +76,14 @@ The when condition does not display a link for the current page--%>
 <form action="Controller" method="POST">
     <input type="hidden" name="command" value="OPEN_ADVERT_CREATE_PAGE">
     <input type="hidden" name="sectionID" value=${sectionID}>
-    <table style="with: 50%">
-    </table>
-    <input type="submit" value="Create new advert" />
+    <input type="submit" value="<fmt:message key="Create_new_advert" bundle="${lang}"></fmt:message>"/>
 </form>
 <form action="Controller" method="POST">
     <input type="hidden" name="command" value="OPEN_MAIN_PAGE">
     <input type="hidden" name="login" value=${user}>
     <table style="with: 50%">
     </table>
-    <input type="submit" value="Back to sections" />
+    <input type="submit" value="<fmt:message key="Back_to_sections" bundle="${lang}"></fmt:message>"/>
 </form>
 </body>
 </html>

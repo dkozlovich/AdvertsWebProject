@@ -1,15 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <html>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locale" var="lang"/>
 <head>
-    <title>Adverts</title>
+    <title><fmt:message key="Adverts_of_user" bundle="${lang}"></fmt:message> ${userName}</title>
 </head>
 <body>
-<h1> Adverts of ${userName}:
-<table width="35%" border="1" cellpadding="7" cellspacing="0">
+<h1> <fmt:message key="Adverts_of_user" bundle="${lang}"></fmt:message> ${userName}:
+<table width="35%" border="1" cellpadding="7" cellspacing="0" style="margin-top: 10px">
     <tr>
-        <th>Name</th></tf><th>Cost</th><th>Created</th><th>Modified</th>
+        <th> <fmt:message key="Name" bundle="${lang}"></fmt:message></th>
+        <th> <fmt:message key="Cost" bundle="${lang}"></fmt:message></th>
+        <th> <fmt:message key="Created" bundle="${lang}"></fmt:message></th>
+        <th> <fmt:message key="Modified" bundle="${lang}"></fmt:message></th>
         <c:forEach items="${advertsOfUser}" var="a">
     </tr>
     <tr>
