@@ -31,11 +31,11 @@ public class OpenSectionPageActionCommand implements ActionCommand {
             List<Advert> advertsOfSection = advertService.getBySectionId(sectionID, (page - 1) * recordsPerPage, recordsPerPage);
             int totalAdvertsOfSectionNumber = sectionService.getTotalAdvertsOfSectionNumber(sectionID);
             int totalPagesNumber = (int) Math.ceil(totalAdvertsOfSectionNumber * 1.0 / recordsPerPage);
-            request.getSession().setAttribute("advertsOfSection", advertsOfSection);
-            request.getSession().setAttribute("sectionName", sectionService.getById(sectionID).get().getName());
-            request.getSession().setAttribute("sectionID", sectionID);
-            request.getSession().setAttribute("totalPagesNumber", totalPagesNumber);
-            request.getSession().setAttribute("currentPage", page);
+            request.setAttribute("advertsOfSection", advertsOfSection);
+            request.setAttribute("sectionName", sectionService.getById(sectionID).get().getName());
+            request.setAttribute("sectionID", sectionID);
+            request.setAttribute("totalPagesNumber", totalPagesNumber);
+            request.setAttribute("currentPage", page);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

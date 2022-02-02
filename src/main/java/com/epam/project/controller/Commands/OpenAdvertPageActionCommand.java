@@ -41,10 +41,10 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
             int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
             request.setAttribute("advert", advertService.getById(id));
             request.setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
-            request.getSession().setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
-            request.getSession().setAttribute("messages", messages);
-            request.getSession().setAttribute("totalPagesNumber", totalPagesNumber);
-            request.getSession().setAttribute("currentPage", page);
+            request.setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
+            request.setAttribute("messages", messages);
+            request.setAttribute("totalPagesNumber", totalPagesNumber);
+            request.setAttribute("currentPage", page);
         } catch (ServiceException e) {
             LOGGER.error(e);
             e.printStackTrace();
