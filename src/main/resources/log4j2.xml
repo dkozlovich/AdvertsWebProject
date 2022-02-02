@@ -8,21 +8,11 @@
                 </pattern>>
             </PatternLayout>
         </Console>
-<!--        <RollingFile name="file" fileName="logs/logFile.log" append="true"-->
-<!--                     filePattern="logs/%d{yyyy-MM-dd}.log">-->
-<!--            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t]   %c{locale_ru.properties} - %msg%n"/>-->
-<!--            <Policies>-->
-<!--                <TimeBasedTriggeringPolicy/>-->
-<!--                <SizeBasedTriggeringPolicy size="1000 KB"/>-->
-<!--            </Policies>-->
-<!--            <DefaultRolloverStrategy max="15"/>-->
-<!--        </RollingFile>-->
 
     </Appenders>
     <Loggers>
         <Root level="all">
             <AppenderRef ref="console"/>
-<!--            <AppenderRef ref="file" level="all"/>-->
         </Root>
     </Loggers>
 </Configuration>

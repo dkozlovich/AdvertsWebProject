@@ -13,6 +13,8 @@ import com.epam.project.service.UserService;
 import com.epam.project.util.DTOMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ public class CreateAdvertActionCommand implements ActionCommand {
     private AdvertService advertService = InstanceProvider.getAdvertServiceImpl();
 
     private UserService userService = InstanceProvider.getUserServiceImpl();
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) {
