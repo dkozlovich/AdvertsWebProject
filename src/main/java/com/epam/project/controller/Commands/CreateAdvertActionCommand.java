@@ -25,11 +25,14 @@ public class CreateAdvertActionCommand implements ActionCommand {
 
     private UserService userService = InstanceProvider.getUserServiceImpl();
 
+    private SectionService sectionService = InstanceProvider.getSectionServiceImpl();
+
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
+        int recordsPerPage = 5;
         int sectionId = Integer.parseInt(request.getParameter("sectionID"));
         String name = request.getParameter("name");
         String content = request.getParameter("content");
@@ -41,7 +44,9 @@ public class CreateAdvertActionCommand implements ActionCommand {
             if (request.getSession().getAttribute("currentUser") != null) {
                 advertService.createAdvert(dto);
                 userService.setSessionAttributes(request);
-                page = ConfigurationManager.getProperty("path.page.main");
+                int totalAdvertsOfSectionNumber = sectionService.getTotalAdvertsOfSectionNumber(sectionId);
+                int totalPagesNumber = (int) Math.ceil(totalAdvertsOfSectionNumber * 1.0 / recordsPerPage);
+                page = "/Controller?command=OPEN_SECTION&sectionID=" + sectionId + "&page=" + totalPagesNumber;;
             }
         } catch (ServiceException e) {
             e.printStackTrace();
