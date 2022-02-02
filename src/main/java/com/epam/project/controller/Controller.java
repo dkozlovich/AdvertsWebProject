@@ -12,6 +12,8 @@ import java.util.Locale;
 
 public class Controller extends HttpServlet {
 
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request, response);
     }
@@ -22,7 +24,10 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String page = null;
-        request.getSession().setAttribute("locale", Locale.forLanguageTag("ru"));
+        Locale locale = (Locale) request.getSession().getAttribute("locale");
+        if (locale == null) {
+            request.getSession().setAttribute("locale", Locale.forLanguageTag(Locale.getDefault().getLanguage()));
+        }
         String command = request.getParameter("command").toUpperCase();
         ActionCommand actionCommand = ActionResolver.defineCommand(command);
         try {
@@ -30,6 +35,8 @@ public class Controller extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
         } catch (Exception e) {
+            System.out.println(e);
+            System.out.println(e.getMessage());
             page = ConfigurationManager.getProperty("path.page.error");
             request.getSession().setAttribute("wrongaction",
                     MessageManager.getProperty("message.wrongaction"));

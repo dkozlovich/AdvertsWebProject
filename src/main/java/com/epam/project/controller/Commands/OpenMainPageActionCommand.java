@@ -16,9 +16,7 @@ public class OpenMainPageActionCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-
         String page = ConfigurationManager.getProperty("path.page.main");
-
         try {
             userService.setSessionAttributes(request);
         } catch (ServiceException e) {
