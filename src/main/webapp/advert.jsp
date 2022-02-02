@@ -139,7 +139,7 @@
         <input type="hidden" name="sectionID" value=${advert.sectionId}>
         <table style="with: 50%">
         </table>
-        <input type="submit" value="<fmt:message key="Back_to_sections" bundle="${lang}"></fmt:message>" />
+        <input type="submit" value="<fmt:message key="Back_to_adverts" bundle="${lang}"></fmt:message>" />
     </form>
 </body>
 </html>
