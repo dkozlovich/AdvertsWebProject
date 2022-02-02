@@ -35,8 +35,6 @@ public class Controller extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println(e.getMessage());
             page = ConfigurationManager.getProperty("path.page.error");
             request.getSession().setAttribute("wrongaction",
                     MessageManager.getProperty("message.wrongaction"));
