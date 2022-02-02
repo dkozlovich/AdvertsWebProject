@@ -20,6 +20,7 @@ public enum CommandEnum {
     UPDATE_ADVERT(new UpdateAdvertActionCommand()),
     OPEN_ADVERT(new OpenAdvertPageActionCommand()),
     OPEN_ADVERT_CREATE_PAGE(new OpenAdvertCreatePageActionCommand()),
+    OPEN_ADVERT_UPDATE_PAGE(new OpenAdvertUpdatePageActionCommand()),
     OPEN_ADVERTS_OF_USER(new OpenAdvertsOfUserActionCommand()),
     OPEN_SECTION(new OpenSectionPageActionCommand()),
     CREATE_MESSAGE(new CreateMessageActionCommand()),

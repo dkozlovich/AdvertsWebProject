@@ -117,7 +117,9 @@
 
     <c:choose>
         <c:when test="${advert.userId == currentUser.id}">
-            <form action="advertUpdate.jsp">
+            <form action="Controller" method="POST">
+                <input type="hidden" name="command" value="OPEN_ADVERT_UPDATE_PAGE">
+                <input type="hidden" name="id" value=${advert.id}>
                 <input type="submit" value="<fmt:message key="Edit" bundle="${lang}"></fmt:message>" />
             </form>
         </c:when>

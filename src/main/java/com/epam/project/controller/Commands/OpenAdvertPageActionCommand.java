@@ -39,8 +39,8 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
             List<MessageDTO> messages = messageService.findByAdvertId(id,(page-1) * recordsPerPage, recordsPerPage);
             int totalMessagesNumber = messageService.getTotalMessagesNumber(id);
             int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
-            request.getSession().setAttribute("advert", advertService.getById(id));
-            request.getSession().setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
+            request.setAttribute("advert", advertService.getById(id));
+            request.setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
             request.getSession().setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
             request.getSession().setAttribute("messages", messages);
             request.getSession().setAttribute("totalPagesNumber", totalPagesNumber);
