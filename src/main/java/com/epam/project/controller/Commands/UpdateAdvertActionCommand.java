@@ -25,6 +25,7 @@ public class UpdateAdvertActionCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
+        int recordsPerPage = 3;
         AdvertUpdateDTO dto = new AdvertUpdateDTO();
         int id = Integer.parseInt(request.getParameter("id"));
         dto.setId(id);
@@ -34,10 +35,13 @@ public class UpdateAdvertActionCommand implements ActionCommand {
         dto.setCost(Double.parseDouble(request.getParameter("cost")));
         try {
             advertService.updateAdvert(dto);
-            request.getSession().setAttribute("advert", advertService.getById(id));
-            request.getSession().setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
-            request.getSession().setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
-            request.getSession().setAttribute("messages", messageService.findByAdvertId(id, 1, 3));
+            int totalMessagesNumber = messageService.getTotalMessagesNumber(id);
+            int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
+            request.setAttribute("advert", advertService.getById(id));
+            request.setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
+            request.setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
+            request.setAttribute("messages", messageService.findByAdvertId(id, 1, 3));
+            request.setAttribute("totalPagesNumber", totalPagesNumber);
             page = ConfigurationManager.getProperty("path.page.advert");
         } catch (ServiceException e) {
             e.printStackTrace();
