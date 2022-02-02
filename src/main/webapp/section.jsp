@@ -22,7 +22,7 @@
                     <td> <a href="?command=OPEN_ADVERT&id=${a.id}"><span style="color:red">${a.name}</span></a>  </td>
                 </c:when>
                 <c:otherwise>
-                    <td> <a href="?command=OPEN_ADVERT&id=${a.id}" > ${a.name} </a>  </td>
+                    <td> <a href="?command=OPEN_ADVERT&id=${a.id}" >${a.name}</a>  </td>
                 </c:otherwise>
             </c:choose>
             <td> ${a.cost}</td>
