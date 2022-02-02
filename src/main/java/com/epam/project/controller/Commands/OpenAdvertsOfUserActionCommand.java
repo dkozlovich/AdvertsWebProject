@@ -16,8 +16,8 @@ public class OpenAdvertsOfUserActionCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         int userID = Integer.parseInt(request.getParameter("userID"));
         try {
-            request.getSession().setAttribute("advertsOfUser", advertService.getAllByUser(userID));
-            request.getSession().setAttribute("userName", request.getParameter("userName"));
+            request.setAttribute("advertsOfUser", advertService.getAllByUser(userID));
+            request.setAttribute("userName", request.getParameter("userName"));
         } catch (ServiceException e) {
             e.printStackTrace();
         }

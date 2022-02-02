@@ -4,9 +4,7 @@ import com.epam.project.ConfigurationManager;
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.ActionCommand;
 import com.epam.project.exception.ServiceException;
-import com.epam.project.service.AdvertService;
 import com.epam.project.service.SectionService;
-import com.epam.project.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class OpenAdvertCreatePageActionCommand implements ActionCommand {
@@ -19,12 +17,12 @@ public class OpenAdvertCreatePageActionCommand implements ActionCommand {
         if (!requestParameter.equals("")) {
             int sectionID = Integer.parseInt(requestParameter);
             try {
-                request.getSession().setAttribute("sectionName", sectionService.getById(sectionID).get().getName());
+                request.setAttribute("sectionName", sectionService.getById(sectionID).get().getName());
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
         } else {
-            request.getSession().setAttribute("sectionName","");
+            request.setAttribute("sectionName","");
         }
         return ConfigurationManager.getProperty("path.page.advertCreate");
     }
