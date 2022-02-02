@@ -14,7 +14,7 @@ public class OpenAdvertCreatePageActionCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String requestParameter = request.getParameter("sectionID");
-        if (!requestParameter.equals("")) {
+        if (!requestParameter.isEmpty()) {
             int sectionID = Integer.parseInt(requestParameter);
             try {
                 request.setAttribute("sectionName", sectionService.getById(sectionID).get().getName());
