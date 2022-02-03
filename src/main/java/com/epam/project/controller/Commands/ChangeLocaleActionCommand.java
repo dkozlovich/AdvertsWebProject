@@ -10,7 +10,7 @@ public class ChangeLocaleActionCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = ConfigurationManager.getProperty("path.page.main");
-        String locale = (String) request.getParameter("locale");
+        String locale = request.getParameter("locale");
         request.getSession().setAttribute("locale", Locale.forLanguageTag(locale));
         return page;
     }
