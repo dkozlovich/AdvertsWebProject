@@ -107,10 +107,10 @@
         <c:choose>
         <c:when test="${m.userDTO.id == advert.userId}">
 
-        <tr><td width="50%">${m.userDTO.username}<span style="color:red"> (<fmt:message key="Advert's_author" bundle="${lang}"></fmt:message>)</span></td><td>${m.created}</td></tr>
+        <tr><td width="50%">${m.userDTO.username}<span style="color:red"> (<fmt:message key="Advert's_author" bundle="${lang}"></fmt:message>)</span></td><td><fmt:formatDate value="${m.created}" pattern="yyyy-MM-dd HH:mm" /></td></tr>
         </c:when>
         <c:otherwise>
-        <tr><td width="50%">${m.userDTO.username}</td><td>${m.created}</td></tr>
+        <tr><td width="50%">${m.userDTO.username}</td><td><fmt:formatDate value="${m.created}" pattern="yyyy-MM-dd HH:mm" /></td></tr>
         </c:otherwise>
         </c:choose>
         <tr><td colspan="2"> ${m.content}</td></tr>
