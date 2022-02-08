@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isErrorPage="true" contentType="text/html; charset=UTF-8" language="java" %>
 <html><head><title>Error Page</title></head>
 <body>
 Request from ${pageContext.errorData.requestURI} is failed
@@ -8,5 +8,10 @@ Servlet name or type: ${pageContext.errorData.servletName}
 Status code: ${pageContext.errorData.statusCode}
 <br/>
 Exception: ${pageContext.errorData.throwable}
+
+<br/>
+<br/>
+
+${error}
 
 </body></html>

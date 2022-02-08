@@ -30,7 +30,7 @@ public class CreateAdvertActionCommand implements ActionCommand {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) throws ServiceException {
         String page = null;
         int recordsPerPage = 5;
         int sectionId = Integer.parseInt(request.getParameter("sectionID"));
@@ -40,16 +40,12 @@ public class CreateAdvertActionCommand implements ActionCommand {
         int userId = Integer.parseInt(request.getParameter("userID"));
         AdvertCreateDTO dto = new AdvertCreateDTO();
         dto.setSectionId(sectionId).setName(name).setContent(content).setCost(cost).setUserId(userId);
-        try {
-            if (request.getSession().getAttribute("currentUser") != null) {
-                advertService.createAdvert(dto);
-                userService.setSessionAttributes(request);
-                int totalAdvertsOfSectionNumber = sectionService.getTotalAdvertsOfSectionNumber(sectionId);
-                int totalPagesNumber = (int) Math.ceil(totalAdvertsOfSectionNumber * 1.0 / recordsPerPage);
-                page = "/Controller?command=OPEN_SECTION&sectionID=" + sectionId + "&page=" + totalPagesNumber;;
-            }
-        } catch (ServiceException e) {
-            e.printStackTrace();
+        if (request.getSession().getAttribute("currentUser") != null) {
+            advertService.createAdvert(dto);
+            userService.setSessionAttributes(request);
+            int totalAdvertsOfSectionNumber = sectionService.getTotalAdvertsOfSectionNumber(sectionId);
+            int totalPagesNumber = (int) Math.ceil(totalAdvertsOfSectionNumber * 1.0 / recordsPerPage);
+            page = "/Controller?command=OPEN_SECTION&sectionID=" + sectionId + "&page=" + totalPagesNumber;
         }
         return page;
     }

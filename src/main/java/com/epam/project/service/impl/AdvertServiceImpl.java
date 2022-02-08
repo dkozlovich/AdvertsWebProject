@@ -4,14 +4,20 @@ import com.epam.project.InstanceProvider;
 import com.epam.project.dao.AdvertDAO;
 import com.epam.project.dto.AdvertCreateDTO;
 import com.epam.project.dto.AdvertUpdateDTO;
+import com.epam.project.exception.BadRequestServiceException;
 import com.epam.project.exception.DAOException;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.model.Advert;
 import com.epam.project.service.AdvertService;
+import com.epam.project.service.SectionService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class AdvertServiceImpl implements AdvertService {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private static AdvertService instance;
 
@@ -28,18 +34,26 @@ public class AdvertServiceImpl implements AdvertService {
 
     private AdvertDAO advertDAO = InstanceProvider.getAdvertDAOImpl();
 
+    private SectionService sectionService = InstanceProvider.getSectionServiceImpl();
+
     @Override
     public Advert createAdvert(AdvertCreateDTO dto) throws ServiceException {
-        Advert advert = new Advert();
+        Advert advert;
         try {
-            if (dto.getName() != null && dto.getName().length() < 46 && dto.getContent() != null && dto.getCost() >= 0) {
+            if (dto.getName() != null && !dto.getName().isEmpty() && dto.getName().length() < 46
+                    && dto.getContent() != null && !dto.getContent().isEmpty()
+                    && sectionService.getById(dto.getSectionId()).isPresent()
+                    && dto.getCost() >= 0) {
                 advert = advertDAO.create(dto);
                 return advert;
+            } else {
+                LOGGER.error("Incorrect data.");
+                throw new BadRequestServiceException("Incorrect data.");
             }
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
-        return advert;
     }
 
     @Override

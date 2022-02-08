@@ -5,17 +5,22 @@ import com.epam.project.dao.MessageDAO;
 import com.epam.project.dao.UserDAO;
 import com.epam.project.dto.MessageDTO;
 import com.epam.project.dto.UserDTO;
+import com.epam.project.exception.BadRequestServiceException;
 import com.epam.project.exception.DAOException;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.model.Message;
 import com.epam.project.model.User;
 import com.epam.project.service.MessageService;
 import com.epam.project.util.DTOMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessageServiceImpl implements MessageService {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private static MessageService instance;
 
@@ -36,12 +41,16 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message createMessage(String content, int userId, int advertId) throws ServiceException {
-        Message message = new Message();
+        Message message;
         try {
-            if (content != null) {
+            if (content != null && !content.isEmpty()) {
                 message = messageDAO.create(content,userId,advertId);
+            } else {
+                LOGGER.error("Incorrect data.");
+                throw new BadRequestServiceException("Incorrect data.");
             }
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
         return message;
