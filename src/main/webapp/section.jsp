@@ -26,10 +26,10 @@
                 </c:otherwise>
             </c:choose>
             <td> ${a.cost}</td>
-            <td> ${a.created}</td>
+            <td> <fmt:formatDate value="${a.created}" pattern="yyyy-MM-dd HH:mm" /></td>
             <c:choose>
                 <c:when test="${a.created != a.modified}">
-                    <td>${a.modified}</td>
+                    <td><fmt:formatDate value="${a.modified}" pattern="yyyy-MM-dd HH:mm" /></td>
                 </c:when>
                 <c:otherwise>
                     <td></td>

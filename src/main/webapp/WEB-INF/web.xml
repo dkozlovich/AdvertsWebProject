@@ -7,6 +7,10 @@
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>com.epam.project.controller.Controller</servlet-class>
+        <multipart-config>
+            <max-file-size>6291456</max-file-size>
+            <max-request-size>6291456</max-request-size>
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>

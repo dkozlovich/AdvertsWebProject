@@ -24,6 +24,7 @@ public enum CommandEnum {
     OPEN_ADVERTS_OF_USER(new OpenAdvertsOfUserActionCommand()),
     OPEN_SECTION(new OpenSectionPageActionCommand()),
     CREATE_MESSAGE(new CreateMessageActionCommand()),
+    SAVE_IMAGE(new SaveImageActionCommand()),
     CHANGE_LOCALE(new ChangeLocaleActionCommand());
 
     ActionCommand command;

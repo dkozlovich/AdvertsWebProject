@@ -22,10 +22,10 @@
     <tr>
         <td> <a href="?command=OPEN_ADVERT&id=${a.id}" > ${a.name} </a>  </td>
         <td> ${a.cost}</td>
-        <td> ${a.created}</td>
+        <td> <fmt:formatDate value="${a.created}" pattern="yyyy-MM-dd HH:mm" /></td>
         <c:choose>
             <c:when test="${a.created != a.modified}">
-                <td>${a.modified}</td>
+                <td><fmt:formatDate value="${a.modified}" pattern="yyyy-MM-dd HH:mm" /></td>
             </c:when>
             <c:otherwise>
                 <td></td>

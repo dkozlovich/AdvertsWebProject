@@ -13,14 +13,14 @@
     <input type="hidden" name="command" value="UPDATE_ADVERT">
     <fmt:message key="Name" bundle="${lang}"></fmt:message>:
     <br/>
-    <input type="text" name="name" value=${advert.name} />
+    <input type="text" name="name" value="${advert.name}" />
     <br/>
     <fmt:message key="Cost" bundle="${lang}"></fmt:message>:
     <br/>
-    <input type="text" name="cost" value=${advert.cost} />
+    <input type="text" name="cost" value="${advert.cost}" />
     <style>
         textarea {
-            width: 40%;
+            width: 30%;
             height: 10%;
             resize: none;
         }

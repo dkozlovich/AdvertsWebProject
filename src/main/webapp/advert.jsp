@@ -18,10 +18,10 @@
     <br/>
     <fmt:message key="Cost" bundle="${lang}"></fmt:message>: ${advert.cost}
     <br/>
-    <fmt:message key="Created" bundle="${lang}"></fmt:message>: ${advert.created}
+    <fmt:message key="Created" bundle="${lang}"></fmt:message>: <fmt:formatDate value="${advert.created}" pattern="yyyy-MM-dd HH:mm" />
     <c:if test="${advert.created != advert.modified}">
     <br/>
-        <fmt:message key="Modified" bundle="${lang}"></fmt:message>: ${advert.modified}
+        <fmt:message key="Modified" bundle="${lang}"></fmt:message>: <fmt:formatDate value="${advert.modified}" pattern="yyyy-MM-dd HH:mm" />
     </c:if>
     <br/>
 
@@ -29,7 +29,7 @@
         <meta charset="utf-8">
         <style>
             #advert {
-                width: 40%;
+                width: 30%;
                 height: 10%;
                 resize: none;
             }
@@ -45,6 +45,55 @@
         <textarea id="advert" readonly>${advert.content}</textarea>
     </form>
     </body>
+    <c:choose>
+        <c:when test="${images.size() > 0}">
+            <head>
+                <meta charset="utf-8">
+                <title>overflow-x</title>
+                <style>
+                    .layer {
+                        position: absolute;
+                        left: 33%;
+                        top: 3%;
+                        overflow-x: auto;
+                        height: 30%;
+                        width: 65%;
+                        padding: 5px;
+                        border: solid 1px black;
+                        white-space: nowrap;
+                    }
+                    .image {
+                        display: inline-block;
+                        margin-right: 10px;
+                    }
+                </style>
+            </head>
+            <body>
+
+            <div class="layer">
+                <c:forEach items="${images}" var="i">
+                    <div class="image">
+                    <img src="data:image/jpg;base64,${i}" height="98%" />
+                    </div>
+                </c:forEach>
+            </div>
+            </body>
+            <br>
+        </c:when>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${advert.userId == currentUser.id}">
+
+            <form action="Controller" enctype="multipart/form-data" method="POST">
+                <input type="hidden" name="command" value="SAVE_IMAGE">
+                <input type="hidden" name="advertId" value=${advert.id}>
+                <input type="file" name="image" value="Add image" />
+                <input type="submit" value="Send (Max size is 6 Mb)"/>
+            </form>
+        </c:when>
+    </c:choose>
+
     <h2><fmt:message key="Messages" bundle="${lang}"></fmt:message>:</h2>
     <c:choose>
     <c:when test="${messages.size() == 0}">
