@@ -66,6 +66,11 @@
                         display: inline-block;
                         margin-right: 10px;
                     }
+                    .addImageButton {
+                        position: absolute;
+                        left: 33%;
+                        top: 36%;
+                    }
                 </style>
             </head>
             <body>
@@ -73,26 +78,40 @@
             <div class="layer">
                 <c:forEach items="${images}" var="i">
                     <div class="image">
-                    <img src="data:image/jpg;base64,${i}" height="98%" />
+                        <c:choose>
+                            <c:when test="${advert.userId == currentUser.id}">
+                                <img src="data:image/jpg;base64,${i}" height="86%" />
+                                <form action="Controller" method="POST">
+                                    <input type="hidden" name="command" value="DELETE_IMAGE">
+                                    <input type="hidden" name="imageID" value="1">
+                                    <input type="submit" value="Delete image"/>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <img src="data:image/jpg;base64,${i}" height="98%" />
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </c:forEach>
+            </div>
+            <div class="addImageButton">
+            <c:choose>
+                <c:when test="${advert.userId == currentUser.id}">
+                    <form action="Controller" enctype="multipart/form-data" method="POST">
+                        <input type="hidden" name="command" value="SAVE_IMAGE">
+                        <input type="hidden" name="advertId" value=${advert.id}>
+                        <input type="file" name="image" value="Add image" />
+                        <input type="submit" value="Send (Max size is 6 Mb)"/>
+                    </form>
+                </c:when>
+            </c:choose>
             </div>
             </body>
             <br>
         </c:when>
     </c:choose>
 
-    <c:choose>
-        <c:when test="${advert.userId == currentUser.id}">
 
-            <form action="Controller" enctype="multipart/form-data" method="POST">
-                <input type="hidden" name="command" value="SAVE_IMAGE">
-                <input type="hidden" name="advertId" value=${advert.id}>
-                <input type="file" name="image" value="Add image" />
-                <input type="submit" value="Send (Max size is 6 Mb)"/>
-            </form>
-        </c:when>
-    </c:choose>
 
     <h2><fmt:message key="Messages" bundle="${lang}"></fmt:message>:</h2>
     <c:choose>
