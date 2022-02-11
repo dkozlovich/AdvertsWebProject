@@ -97,6 +97,7 @@
             <div class="addImageButton">
             <c:choose>
                 <c:when test="${advert.userId == currentUser.id}">
+                    Add image:
                     <form action="Controller" enctype="multipart/form-data" method="POST">
                         <input type="hidden" name="command" value="SAVE_IMAGE">
                         <input type="hidden" name="advertId" value=${advert.id}>
