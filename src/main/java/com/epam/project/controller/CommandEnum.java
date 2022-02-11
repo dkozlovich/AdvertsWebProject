@@ -25,6 +25,7 @@ public enum CommandEnum {
     OPEN_SECTION(new OpenSectionPageActionCommand()),
     CREATE_MESSAGE(new CreateMessageActionCommand()),
     SAVE_IMAGE(new SaveImageActionCommand()),
+    DELETE_IMAGE(new DeleteImageActionCommand()),
     CHANGE_LOCALE(new ChangeLocaleActionCommand());
 
     ActionCommand command;

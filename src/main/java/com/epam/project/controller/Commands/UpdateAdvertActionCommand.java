@@ -43,7 +43,7 @@ public class UpdateAdvertActionCommand implements ActionCommand {
             request.setAttribute("messages", messageService.findByAdvertId(id, 1, 3));
             request.setAttribute("totalPagesNumber", totalPagesNumber);
             request.setAttribute("currentPage",1);
-            page = ConfigurationManager.getProperty("path.page.advert");
+            page = "/Controller?command=OPEN_ADVERT&id="+id;
         } catch (ServiceException e) {
             e.printStackTrace();
         }

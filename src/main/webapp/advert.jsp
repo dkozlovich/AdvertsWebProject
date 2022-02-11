@@ -46,7 +46,7 @@
     </form>
     </body>
     <c:choose>
-        <c:when test="${images.size() > 0}">
+        <c:when test="${imagesDTO.size() > 0}">
             <head>
                 <meta charset="utf-8">
                 <title>overflow-x</title>
@@ -76,41 +76,42 @@
             <body>
 
             <div class="layer">
-                <c:forEach items="${images}" var="i">
+                <c:forEach items="${imagesDTO}" var="i">
                     <div class="image">
                         <c:choose>
                             <c:when test="${advert.userId == currentUser.id}">
-                                <img src="data:image/jpg;base64,${i}" height="86%" />
+                                <img src="data:image/jpg;base64,${i.advertImage}" height="86%" />
                                 <form action="Controller" method="POST">
                                     <input type="hidden" name="command" value="DELETE_IMAGE">
-                                    <input type="hidden" name="imageID" value="1">
+                                    <input type="hidden" name="advertID" value=${advert.id}>
+                                    <input type="hidden" name="imageID" value="${i.id}">
                                     <input type="submit" value="Delete image"/>
                                 </form>
                             </c:when>
                             <c:otherwise>
-                                <img src="data:image/jpg;base64,${i}" height="98%" />
+                                <img src="data:image/jpg;base64,${i.advertImage}" height="98%" />
                             </c:otherwise>
                         </c:choose>
                     </div>
                 </c:forEach>
             </div>
-            <div class="addImageButton">
-            <c:choose>
-                <c:when test="${advert.userId == currentUser.id}">
-                    Add image:
-                    <form action="Controller" enctype="multipart/form-data" method="POST">
-                        <input type="hidden" name="command" value="SAVE_IMAGE">
-                        <input type="hidden" name="advertId" value=${advert.id}>
-                        <input type="file" name="image" value="Add image" />
-                        <input type="submit" value="Send (Max size is 6 Mb)"/>
-                    </form>
-                </c:when>
-            </c:choose>
-            </div>
             </body>
             <br>
         </c:when>
     </c:choose>
+    <div class="addImageButton">
+        <c:choose>
+            <c:when test="${advert.userId == currentUser.id}">
+                Add image:
+                <form action="Controller" enctype="multipart/form-data" method="POST">
+                    <input type="hidden" name="command" value="SAVE_IMAGE">
+                    <input type="hidden" name="advertID" value=${advert.id}>
+                    <input type="file" name="image" value="Add image" />
+                    <input type="submit" value="Send (Max size is 6 Mb)"/>
+                </form>
+            </c:when>
+        </c:choose>
+    </div>
 
 
 

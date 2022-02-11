@@ -3,10 +3,12 @@ package com.epam.project.controller.Commands;
 import com.epam.project.ConfigurationManager;
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.ActionCommand;
+import com.epam.project.dto.ImageDTO;
 import com.epam.project.dto.MessageDTO;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.model.Image;
 import com.epam.project.service.*;
+import com.epam.project.util.DTOMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,14 +48,12 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
             int totalMessagesNumber = messageService.getTotalMessagesNumber(id);
             int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
             List<Image> images = imageService.getByAdvertId(id);
-            List<String> imagesAsBase64 = new ArrayList<>();
+            List<ImageDTO> imagesDTO = new ArrayList<>();
             for (Image item : images) {
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
-                ImageIO.write(item.getAdvertImage(), "jpg", output);
-                String imageAsBase64 = Base64.getEncoder().encodeToString(output.toByteArray());
-                imagesAsBase64.add(imageAsBase64);
+                ImageDTO imageDTO = DTOMapper.mapImage(item);
+                imagesDTO.add(imageDTO);
             }
-            request.setAttribute("images", imagesAsBase64);
+            request.setAttribute("imagesDTO", imagesDTO);
             request.setAttribute("advert", advertService.getById(id));
             request.setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
             request.setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
