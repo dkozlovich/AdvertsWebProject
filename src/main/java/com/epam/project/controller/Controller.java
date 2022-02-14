@@ -1,7 +1,6 @@
 package com.epam.project.controller;
 
 import com.epam.project.ConfigurationManager;
-import com.epam.project.MessageManager;
 import com.epam.project.exception.ServiceException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;

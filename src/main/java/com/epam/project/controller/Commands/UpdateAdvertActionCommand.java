@@ -1,12 +1,10 @@
 package com.epam.project.controller.Commands;
 
-import com.epam.project.ConfigurationManager;
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.ActionCommand;
 import com.epam.project.dto.AdvertUpdateDTO;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.service.AdvertService;
-
 import com.epam.project.service.MessageService;
 import com.epam.project.service.SectionService;
 import com.epam.project.service.UserService;
