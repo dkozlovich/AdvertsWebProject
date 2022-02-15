@@ -26,7 +26,8 @@ public enum CommandEnum {
     CREATE_MESSAGE(new CreateMessageActionCommand()),
     SAVE_IMAGE(new SaveImageActionCommand()),
     DELETE_IMAGE(new DeleteImageActionCommand()),
-    CHANGE_LOCALE(new ChangeLocaleActionCommand());
+    CHANGE_LOCALE(new ChangeLocaleActionCommand()),
+    SEARCH_ADVERTS(new SearchAdvertsActionCommand());
 
     ActionCommand command;
 

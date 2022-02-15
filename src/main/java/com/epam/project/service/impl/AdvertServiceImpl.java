@@ -112,4 +112,13 @@ public class AdvertServiceImpl implements AdvertService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public List<Advert> search(String key) throws ServiceException {
+        try {
+            return advertDAO.search(key);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

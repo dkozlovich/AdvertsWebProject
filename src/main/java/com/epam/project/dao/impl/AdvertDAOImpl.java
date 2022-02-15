@@ -22,13 +22,13 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String GET_BY_SECTION_ID = "SELECT * FROM project.adverts WHERE sectionID=? LIMIT ?,?";
 
-    private static final String GET_BY_USER_ID = "SELECT * FROM project.adverts WHERE userID=?";
-
     private static final String CREATE_ADVERT = "INSERT INTO project.adverts (sectionID,name,content,cost,created,modified,userID) values (?,?,?,?,?,?,?)";
 
     private static final String DELETE_ADVERT = "DELETE FROM project.adverts WHERE id=?";
 
     private static final String UPDATE_ADVERT = "UPDATE project.adverts SET sectionID=?, name=?, content=?, cost=?, modified=? WHERE id=?";
+
+    private static final String SEARCH_ADVERT = "SELECT * FROM project.adverts WHERE content LIKE ?";
 
     private static AdvertDAO instance;
 
@@ -158,6 +158,22 @@ public class AdvertDAOImpl implements AdvertDAO {
             stmt.setInt(1,sectionId);
             stmt.setInt(2,offset);
             stmt.setInt(3,limit);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(mapAdvert(rs));
+            }
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Advert> search(String key) throws DAOException {
+        List<Advert> list = new ArrayList<>();
+        try (Connection con = ConnectionPool.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(SEARCH_ADVERT)) {
+            stmt.setString(1, "%" + key + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(mapAdvert(rs));

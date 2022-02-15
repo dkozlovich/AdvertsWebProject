@@ -1,0 +1,38 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<html>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locale" var="lang"/>
+<head>
+    <title><fmt:message key="Search_result" bundle="${lang}"></fmt:message></title>
+</head>
+<body>
+<h1> <fmt:message key="Search_result" bundle="${lang}"></fmt:message> (${advertsOfSearch.size()} <fmt:message key="Found" bundle="${lang}"></fmt:message>):
+    <table width="35%" border="1" cellpadding="7" cellspacing="0" style="margin-top: 10px">
+        <tr>
+            <th> <fmt:message key="Name" bundle="${lang}"></fmt:message></th>
+            <th> <fmt:message key="Cost" bundle="${lang}"></fmt:message></th>
+            <th> <fmt:message key="Created" bundle="${lang}"></fmt:message></th>
+            <th> <fmt:message key="Modified" bundle="${lang}"></fmt:message></th>
+            <c:forEach items="${advertsOfSearch}" var="a">
+        </tr>
+        <tr>
+            <td> <a href="?command=OPEN_ADVERT&id=${a.id}" > ${a.name} </a>  </td>
+            <td> ${a.cost}</td>
+            <td> <fmt:formatDate value="${a.created}" pattern="yyyy-MM-dd HH:mm" /></td>
+            <c:choose>
+                <c:when test="${a.created != a.modified}">
+                    <td><fmt:formatDate value="${a.modified}" pattern="yyyy-MM-dd HH:mm" /></td>
+                </c:when>
+                <c:otherwise>
+                    <td></td>
+                </c:otherwise>
+            </c:choose>
+        </tr>
+        </c:forEach>
+    </table>
+    <br/>
+    <button type="button" name="back" onclick="history.back()"><fmt:message key="Back" bundle="${lang}"></fmt:message></button>
+</body>
+</html>

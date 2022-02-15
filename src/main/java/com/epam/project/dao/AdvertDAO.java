@@ -16,4 +16,5 @@ public interface AdvertDAO {
     void delete(int id) throws DAOException;
     void update(AdvertUpdateDTO dto) throws DAOException;
     List<Advert> getAllByUser(int userId) throws DAOException;
+    List<Advert> search(String key) throws DAOException;
 }

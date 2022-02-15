@@ -35,6 +35,6 @@
     </c:forEach>
 </table>
 <br/>
-    <button type="button" name="back" onclick="history.back()">Back</button>
+    <button type="button" name="back" onclick="history.back()"><fmt:message key="Back" bundle="${lang}"></fmt:message></button>
 </body>
 </html>
