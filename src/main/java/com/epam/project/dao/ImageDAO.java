@@ -14,4 +14,6 @@ public interface ImageDAO {
 
     void delete(int id) throws DAOException;
 
+    public int getAdvertIdByImageId(int id) throws DAOException;
+
 }

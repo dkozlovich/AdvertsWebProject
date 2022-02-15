@@ -1,6 +1,8 @@
 package com.epam.project.dao.impl;
 
+import com.epam.project.InstanceProvider;
 import com.epam.project.connection.ConnectionPool;
+import com.epam.project.dao.AdvertDAO;
 import com.epam.project.dao.ImageDAO;
 import com.epam.project.exception.DAOException;
 import com.epam.project.model.Image;
@@ -28,15 +30,15 @@ public class ImageDAOImpl implements ImageDAO {
         return instance;
     }
 
-    private static final String ADD_IMAGE = "INSERT INTO project.images (advertImage, advertID) values (?,?)";
+    AdvertDAO advertDAO = InstanceProvider.getAdvertDAOImpl();
 
-    private static final String GET_ADVERT_ID_BY_IMAGE_ID = "SELECT (advertID) FROM project.images WHERE id=?";
+    private static final String ADD_IMAGE = "INSERT INTO project.images (advertImage, advertID) values (?,?)";
 
     private static final String GET_BY_ADVERT_ID = "SELECT * FROM project.images WHERE advertID=?";
 
     private static final String DELETE_IMAGE = "DELETE FROM project.images WHERE id=?";
 
-    private static final String UPDATE_ADVERT_DATE = "UPDATE project.adverts SET modified=? WHERE id=?";
+    private static final String GET_ADVERT_ID_BY_IMAGE_ID = "SELECT (advertID) FROM project.images WHERE id=?";
 
     @Override
     public Image add(BufferedImage advertImage, int advertId) throws DAOException {
@@ -60,7 +62,7 @@ public class ImageDAOImpl implements ImageDAO {
                     }
                 }
             }
-            updateAdvertDate(advertId);
+            advertDAO.updateAdvertDate(advertId);
             return image;
         } catch (Exception e) {
             throw new DAOException(e);
@@ -73,7 +75,22 @@ public class ImageDAOImpl implements ImageDAO {
             Integer advertId = getAdvertIdByImageId(id);
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            updateAdvertDate(advertId);
+            advertDAO.updateAdvertDate(advertId);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+    }
+
+    public int getAdvertIdByImageId(int id) throws DAOException {
+        Integer advertId = null;
+        try (Connection con = ConnectionPool.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(GET_ADVERT_ID_BY_IMAGE_ID)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                advertId = rs.getInt(1);
+            }
+            return advertId;
         } catch (Exception e) {
             throw new DAOException(e);
         }
@@ -101,30 +118,4 @@ public class ImageDAOImpl implements ImageDAO {
         }
     }
 
-    private void updateAdvertDate(int advertId) throws DAOException {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        try (Connection con = ConnectionPool.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(UPDATE_ADVERT_DATE);) {
-            stmt.setTimestamp(1, timestamp);
-            stmt.setInt(2, advertId);
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-    }
-
-    private int getAdvertIdByImageId(int id) throws DAOException {
-        Integer advertId = null;
-        try (Connection con = ConnectionPool.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(GET_ADVERT_ID_BY_IMAGE_ID)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                advertId = rs.getInt(1);
-            }
-            return advertId;
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-    }
 }

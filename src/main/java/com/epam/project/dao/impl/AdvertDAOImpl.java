@@ -30,6 +30,8 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String SEARCH_ADVERT = "SELECT * FROM project.adverts WHERE content LIKE ?";
 
+    private static final String UPDATE_ADVERT_DATE = "UPDATE project.adverts SET modified=? WHERE id=?";
+
     private static AdvertDAO instance;
 
     private AdvertDAOImpl() {
@@ -182,6 +184,20 @@ public class AdvertDAOImpl implements AdvertDAO {
             throw new DAOException(e);
         }
         return list;
+    }
+
+
+
+    public void updateAdvertDate(int advertId) throws DAOException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        try (Connection con = ConnectionPool.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(UPDATE_ADVERT_DATE);) {
+            stmt.setTimestamp(1, timestamp);
+            stmt.setInt(2, advertId);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
     }
 
     private Advert mapAdvert(ResultSet resultset) throws SQLException {
