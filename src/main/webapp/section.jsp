@@ -10,7 +10,14 @@
 </head>
 <body>
 <h1> ${sectionName} </h1>
-<table width="35%" border="1" cellpadding="7" cellspacing="0">
+Sort:
+<select name="sortBy" size="1">
+    <option selected value=${s.id}>New first</option>
+    <option value="">Old first</option>
+    <option value="">Low price first</option>
+    <option value="">High price first</option>
+</select>
+<table width="35%" border="1" cellpadding="7" cellspacing="0" style="margin-top: 10px">
     <tr>
         <th><fmt:message key="Name" bundle="${lang}"></fmt:message></th></tf><th><fmt:message key="Cost" bundle="${lang}"></fmt:message></th>
         <th><fmt:message key="Created" bundle="${lang}"></fmt:message></th><th><fmt:message key="Modified" bundle="${lang}"></fmt:message></th>

@@ -20,7 +20,7 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String GET_BY_ID = "SELECT * FROM project.adverts WHERE id=?";
 
-    private static final String GET_BY_SECTION_ID = "SELECT * FROM project.adverts WHERE sectionID=? LIMIT ?,?";
+    private static final String GET_BY_SECTION_ID = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY modified DESC LIMIT ?,?";
 
     private static final String CREATE_ADVERT = "INSERT INTO project.adverts (sectionID,name,content,cost,created,modified,userID) values (?,?,?,?,?,?,?)";
 
