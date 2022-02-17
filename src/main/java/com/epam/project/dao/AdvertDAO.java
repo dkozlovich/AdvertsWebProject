@@ -13,7 +13,7 @@ public interface AdvertDAO {
 
     Optional<Advert> getById(int id) throws DAOException;
 
-    List<Advert> getBySectionId(int id, int offset, int limit) throws DAOException;
+    List<Advert> getBySectionId(int id, int offset, int limit, String sortType) throws DAOException;
 
     Advert create(AdvertCreateDTO advert) throws DAOException;
 

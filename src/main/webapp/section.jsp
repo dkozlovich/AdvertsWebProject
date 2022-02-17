@@ -11,12 +11,42 @@
 <body>
 <h1> ${sectionName} </h1>
 Sort:
-<select name="sortBy" size="1">
-    <option selected value=${s.id}>New first</option>
-    <option value="">Old first</option>
-    <option value="">Low price first</option>
-    <option value="">High price first</option>
-</select>
+<form action="Controller" method="POST">
+    <select name="sortType" size="1">
+        <c:choose>
+            <c:when test="${sortType.equals('MODIFIED_DESC')}">
+                <option selected value="MODIFIED_DESC">New first</option>
+                <option value="MODIFIED_ASC">Old first</option>
+                <option value="COST_ASC">Low price first</option>
+                <option value="COST_DESC">High price first</option>
+            </c:when>
+            <c:when test="${sortType.equals('MODIFIED_ASC')}">
+                <option value="MODIFIED_DESC">New first</option>
+                <option selected value="MODIFIED_ASC">Old first</option>
+                <option value="COST_ASC">Low price first</option>
+                <option value="COST_DESC">High price first</option>
+            </c:when>
+            <c:when test="${sortType.equals('COST_ASC')}">
+                <option value="MODIFIED_DESC">New first</option>
+                <option value="MODIFIED_ASC">Old first</option>
+                <option selected value="COST_ASC">Low price first</option>
+                <option value="COST_DESC">High price first</option>
+            </c:when>
+            <c:when test="${sortType.equals('COST_DESC')}">
+                <option value="MODIFIED_DESC">New first</option>
+                <option value="MODIFIED_ASC">Old first</option>
+                <option value="COST_ASC">Low price first</option>
+                <option selected value="COST_DESC">High price first</option>
+            </c:when>
+        </c:choose>
+    </select>
+    <input type="hidden" name="command" value="CHANGE_SORT">
+    <input type="hidden" name="sectionID" value=${sectionID}>
+    <table style="with: 50%">
+    </table>
+    <input type="submit" value="Apply" />
+</form>
+
 <table width="35%" border="1" cellpadding="7" cellspacing="0" style="margin-top: 10px">
     <tr>
         <th><fmt:message key="Name" bundle="${lang}"></fmt:message></th></tf><th><fmt:message key="Cost" bundle="${lang}"></fmt:message></th>

@@ -16,11 +16,17 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String GET_ALL_ADVERTS = "SELECT * FROM project.adverts";
 
-    private static final String GET_ALL_BY_USER = "SELECT * FROM project.adverts WHERE userID=?";
+    private static final String GET_ALL_BY_USER = "SELECT * FROM project.adverts WHERE userID=? ORDER BY modified DESC";
 
     private static final String GET_BY_ID = "SELECT * FROM project.adverts WHERE id=?";
 
-    private static final String GET_BY_SECTION_ID = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY modified DESC LIMIT ?,?";
+    private static final String GET_BY_SECTION_ID_MODIFIED_DESC = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY modified DESC LIMIT ?,?";
+
+    private static final String GET_BY_SECTION_ID_MODIFIED_ASC = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY modified ASC LIMIT ?,?";
+
+    private static final String GET_BY_SECTION_ID_COST_DESC = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY cost DESC LIMIT ?,?";
+
+    private static final String GET_BY_SECTION_ID_COST_ASC = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY cost ASC LIMIT ?,?";
 
     private static final String CREATE_ADVERT = "INSERT INTO project.adverts (sectionID,name,content,cost,created,modified,userID) values (?,?,?,?,?,?,?)";
 
@@ -28,7 +34,7 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String UPDATE_ADVERT = "UPDATE project.adverts SET sectionID=?, name=?, content=?, cost=?, modified=? WHERE id=?";
 
-    private static final String SEARCH_ADVERT = "SELECT * FROM project.adverts WHERE content LIKE ?";
+    private static final String SEARCH_ADVERT = "SELECT * FROM project.adverts WHERE content LIKE ? ORDER BY modified DESC";
 
     private static final String UPDATE_ADVERT_DATE = "UPDATE project.adverts SET modified=? WHERE id=?";
 
@@ -153,10 +159,25 @@ public class AdvertDAOImpl implements AdvertDAO {
     }
 
     @Override
-    public List<Advert> getBySectionId(int sectionId, int offset, int limit) throws DAOException {
+    public List<Advert> getBySectionId(int sectionId, int offset, int limit, String sortType) throws DAOException {
+        String query = null;
+        switch (sortType) {
+            case "MODIFIED_DESC":
+                query = GET_BY_SECTION_ID_MODIFIED_DESC;
+                break;
+            case "MODIFIED_ASC":
+                query = GET_BY_SECTION_ID_MODIFIED_ASC;
+                break;
+            case "COST_DESC":
+                query = GET_BY_SECTION_ID_COST_DESC;
+                break;
+            case "COST_ASC":
+                query = GET_BY_SECTION_ID_COST_ASC;
+                break;
+        }
         List<Advert> list = new ArrayList<>();
         try (Connection con = ConnectionPool.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(GET_BY_SECTION_ID);){
+             PreparedStatement stmt = con.prepareStatement(query);){
             stmt.setInt(1,sectionId);
             stmt.setInt(2,offset);
             stmt.setInt(3,limit);
@@ -169,6 +190,8 @@ public class AdvertDAOImpl implements AdvertDAO {
         }
         return list;
     }
+
+
 
     @Override
     public List<Advert> search(String key) throws DAOException {

@@ -24,10 +24,14 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String page = null;
+        String page;
         Locale locale = (Locale) request.getSession().getAttribute("locale");
+        String sortType = (String) request.getSession().getAttribute("sortType");
         if (locale == null) {
             request.getSession().setAttribute("locale", Locale.forLanguageTag(Locale.getDefault().getLanguage()));
+        }
+        if (sortType == null) {
+            request.getSession().setAttribute("sortType", "MODIFIED_DESC");
         }
         String command = request.getParameter("command").toUpperCase();
         ActionCommand actionCommand = ActionResolver.defineCommand(command);

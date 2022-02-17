@@ -6,6 +6,7 @@ import com.epam.project.controller.ActionCommand;
 import com.epam.project.dto.ImageDTO;
 import com.epam.project.dto.MessageDTO;
 import com.epam.project.exception.ServiceException;
+import com.epam.project.model.Advert;
 import com.epam.project.model.Image;
 import com.epam.project.service.*;
 import com.epam.project.util.DTOMapper;
@@ -49,10 +50,11 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
                 ImageDTO imageDTO = DTOMapper.mapImage(item);
                 imagesDTO.add(imageDTO);
             }
+            Advert advert = advertService.getById(id);
             request.setAttribute("imagesDTO", imagesDTO);
-            request.setAttribute("advert", advertService.getById(id));
-            request.setAttribute("sectionName", sectionService.getById(advertService.getById(id).getSectionId()).get().getName());
-            request.setAttribute("userName", userService.getById(advertService.getById(id).getUserId()).getUsername());
+            request.setAttribute("advert", advert);
+            request.setAttribute("sectionName", sectionService.getById(advert.getSectionId()).get().getName());
+            request.setAttribute("userName", userService.getById(advert.getUserId()).getUsername());
             request.setAttribute("messages", messages);
             request.setAttribute("totalPagesNumber", totalPagesNumber);
             request.setAttribute("currentPage", page);

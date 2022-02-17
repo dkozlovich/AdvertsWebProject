@@ -27,7 +27,8 @@ public enum CommandEnum {
     SAVE_IMAGE(new SaveImageActionCommand()),
     DELETE_IMAGE(new DeleteImageActionCommand()),
     CHANGE_LOCALE(new ChangeLocaleActionCommand()),
-    SEARCH_ADVERTS(new SearchAdvertsActionCommand());
+    SEARCH_ADVERTS(new SearchAdvertsActionCommand()),
+    CHANGE_SORT(new ChangeSortTypeActionCommand());
 
     ActionCommand command;
 
