@@ -1,4 +1,4 @@
-package com.epam.project.controller.Commands;
+package com.epam.project.controller.command.impl;
 
 import com.epam.project.ConfigurationManager;
 import com.epam.project.InstanceProvider;
@@ -8,14 +8,15 @@ import com.epam.project.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.io.UnsupportedEncodingException;
 
-public class OpenAdminPageActionCommand implements ActionCommand {
+public class OpenMainPageActionCommand implements ActionCommand {
 
     private UserService userService = InstanceProvider.getUserServiceImpl();
 
     @Override
     public String execute(HttpServletRequest request) {
-        String page = ConfigurationManager.getProperty("path.page.admin");
+        String page = ConfigurationManager.getProperty("path.page.main");
         try {
             userService.setSessionAttributes(request);
         } catch (ServiceException e) {

@@ -1,7 +1,6 @@
 package com.epam.project.controller;
 
-import com.epam.project.controller.Commands.*;
-import com.epam.project.controller.Commands.*;
+import com.epam.project.controller.command.impl.*;
 
 public enum CommandEnum {
 

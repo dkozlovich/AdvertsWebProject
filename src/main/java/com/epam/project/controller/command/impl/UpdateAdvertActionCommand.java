@@ -1,4 +1,4 @@
-package com.epam.project.controller.Commands;
+package com.epam.project.controller.command.impl;
 
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.ActionCommand;
