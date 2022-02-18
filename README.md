@@ -17,7 +17,7 @@ AdvertsWebProject is a service, where users can view, search and post adverts.
 - delete their own adverts
 - add and delete images to their own adverts
 - view all their own adverts
-- communicate with other users (write and read messages in their own adverts and in other users adverts)
+- communicate with other users (write and read messages in any adverts)
 - logout
 
 **Admin** capability:
