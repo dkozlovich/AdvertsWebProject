@@ -24,7 +24,7 @@ public interface AdvertDAO {
 
     List<Advert> getAllByUser(int userId) throws DAOException;
 
-    List<Advert> search(String key, String dateFrom, String dateTo, String sectionId) throws DAOException;
+    List<Advert> search(String key, String dateFrom, String dateTo, String sectionId, int offset, int limit) throws DAOException;
 
     public void updateAdvertDate(int advertId) throws DAOException;
 }

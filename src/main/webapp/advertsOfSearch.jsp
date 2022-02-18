@@ -9,8 +9,8 @@
 </head>
 <body>
 
-<h3><fmt:message key="Search_by_part_of_word_in_name_or_content" bundle="${lang}"></fmt:message>:</h3>
 <form>
+    <fmt:message key="Search_by_part_of_word_in_name_or_content" bundle="${lang}"></fmt:message>:
     <input type="hidden" name="command" value="SEARCH_ADVERTS">
     <c:choose>
         <c:when test="${searchParameters.get('key') != ''}">
@@ -57,7 +57,7 @@
     <br/>
     <p> <input type="submit" value="<fmt:message key="Search" bundle="${lang}"></fmt:message>"></p>
 </form>
-<h1> <fmt:message key="Search_result" bundle="${lang}"></fmt:message> (${advertsOfSearch.size()} <fmt:message key="Found" bundle="${lang}"></fmt:message>):
+<h1> <fmt:message key="Search_result" bundle="${lang}"></fmt:message> (${totalAdvertsNumber} <fmt:message key="Found" bundle="${lang}"></fmt:message>): </h1>
     <table width="35%" border="1" cellpadding="7" cellspacing="0" style="margin-top: 10px">
         <tr>
             <th> <fmt:message key="Name" bundle="${lang}"></fmt:message></th>
@@ -81,6 +81,39 @@
         </tr>
         </c:forEach>
     </table>
+    <%--For displaying Previous link except for the 1st page --%>
+    <c:if test="${currentPage != 1}">
+    <td><a href="?command=SEARCH_ADVERTS&searchKey=${searchParameters.get('key')}&dateFrom=${searchParameters.get('dateFrom')}&dateTo=${searchParameters.get('dateTo')}&sectionID=${searchParameters.get('sectionId')}&page=${currentPage - 1}"><fmt:message key="Previous_page" bundle="${lang}"></fmt:message></a></td>
+    </c:if>
+
+    <%--For displaying Page numbers.
+    The when condition does not display a link for the current page--%>
+    <c:choose>
+    <c:when test="${advertsOfSearch.size() != 0}">
+    <table border="1" cellpadding="5" cellspacing="5">
+        <tr>
+            <c:forEach begin="1" end="${totalPagesNumber}" var="i">
+                <c:choose>
+                    <c:when test="${currentPage eq i}">
+                        <td>${i}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td><a href="?command=SEARCH_ADVERTS&searchKey=${searchParameters.get('key')}&dateFrom=${searchParameters.get('dateFrom')}&dateTo=${searchParameters.get('dateTo')}&sectionID=${searchParameters.get('sectionId')}&page=${i}">${i}</a></td>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </tr>
+    </table>
+    </c:when>
+    </c:choose>
+
+    <%--For displaying Next link --%>
+    <c:if test="${currentPage < totalPagesNumber}">
+    <td><a href="?command=SEARCH_ADVERTS&searchKey=${searchParameters.get('key')}&dateFrom=${searchParameters.get('dateFrom')}&dateTo=${searchParameters.get('dateTo')}&sectionID=${searchParameters.get('sectionId')}&page=${currentPage + 1}"><fmt:message key="Next_page" bundle="${lang}"></fmt:message></a></td>
+    <br>
+    </c:if>
+
+
     <br/>
     <form action="Controller" method="POST">
         <input type="hidden" name="command" value="OPEN_MAIN_PAGE">

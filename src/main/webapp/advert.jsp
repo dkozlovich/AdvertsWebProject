@@ -114,7 +114,6 @@
     </div>
 
 
-
     <h2><fmt:message key="Messages" bundle="${lang}"></fmt:message>:</h2>
     <c:choose>
     <c:when test="${messages.size() == 0}">

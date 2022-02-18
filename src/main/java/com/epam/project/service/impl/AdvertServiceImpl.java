@@ -115,9 +115,9 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public List<Advert> search(String key, String dateFrom, String dateTo, String sectionId) throws ServiceException {
+    public List<Advert> search(String key, String dateFrom, String dateTo, String sectionId, int offset, int limit) throws ServiceException {
         try {
-            return advertDAO.search(key, dateFrom, dateTo, sectionId);
+            return advertDAO.search(key, dateFrom, dateTo, sectionId, offset, limit);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

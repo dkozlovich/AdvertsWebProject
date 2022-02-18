@@ -18,6 +18,11 @@ public class SearchAdvertsActionCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) throws ServiceException, ServletException, IOException {
+        int page = 1;
+        int recordsPerPage = 10;
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
         String key = request.getParameter("searchKey");
         String dateFrom = request.getParameter("dateFrom");
         String dateTo = request.getParameter("dateTo");
@@ -27,9 +32,14 @@ public class SearchAdvertsActionCommand implements ActionCommand {
         searchParameters.put("dateFrom", dateFrom);
         searchParameters.put("dateTo", dateTo);
         searchParameters.put("sectionId", sectionId);
+        int totalAdvertsNumber = advertService.search(key, dateFrom, dateTo, sectionId,0, Integer.MAX_VALUE).size();
+        int totalPagesNumber = (int) Math.ceil(totalAdvertsNumber * 1.0 / recordsPerPage);
         try {
             request.setAttribute("searchParameters", searchParameters);
-            request.setAttribute("advertsOfSearch", advertService.search(key, dateFrom, dateTo, sectionId));
+            request.setAttribute("totalPagesNumber", totalPagesNumber);
+            request.setAttribute("currentPage", page);
+            request.setAttribute("totalAdvertsNumber", totalAdvertsNumber);
+            request.setAttribute("advertsOfSearch", advertService.search(key, dateFrom, dateTo, sectionId,(page-1) * recordsPerPage, recordsPerPage));
         } catch (ServiceException e) {
             e.printStackTrace();
         }

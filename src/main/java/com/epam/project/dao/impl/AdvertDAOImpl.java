@@ -34,7 +34,7 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String UPDATE_ADVERT = "UPDATE project.adverts SET sectionID=?, name=?, content=?, cost=?, modified=? WHERE id=?";
 
-    private static final String SEARCH_ADVERT = "SELECT * FROM project.adverts WHERE modified BETWEEN ? AND ? AND sectionID BETWEEN ? AND ? AND content LIKE ? ORDER BY modified DESC";
+    private static final String SEARCH_ADVERT = "SELECT * FROM project.adverts WHERE modified BETWEEN ? AND ? AND sectionID BETWEEN ? AND ? AND (content LIKE ? OR name LIKE ?) ORDER BY modified DESC LIMIT ?,?";
 
     private static final String UPDATE_ADVERT_DATE = "UPDATE project.adverts SET modified=? WHERE id=?";
 
@@ -192,7 +192,7 @@ public class AdvertDAOImpl implements AdvertDAO {
     }
 
     @Override
-    public List<Advert> search(String key, String dateFrom, String dateTo, String sectionId) throws DAOException {
+    public List<Advert> search(String key, String dateFrom, String dateTo, String sectionId, int offset, int limit) throws DAOException {
         List<Advert> list = new ArrayList<>();
         int id;
         try (Connection con = ConnectionPool.getInstance().getConnection();
@@ -216,6 +216,9 @@ public class AdvertDAOImpl implements AdvertDAO {
                stmt.setDate(2, new Date(System.currentTimeMillis()));
            }
             stmt.setString(5, "%" + key + "%");
+            stmt.setString(6, "%" + key + "%");
+            stmt.setInt(7, offset);
+           stmt.setInt(8, limit);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(mapAdvert(rs));
