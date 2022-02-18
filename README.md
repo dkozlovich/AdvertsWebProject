@@ -19,7 +19,8 @@ Web project is an site, where users can view, search and post adverts.
 - view all their adverts
 - communicate with other users (post messages in their own and in not their own adverts)
 - logout
-** Admin* capability:
+- 
+** Admin** capability:
 - view all users list
 - delete any user
 - delete any advert
