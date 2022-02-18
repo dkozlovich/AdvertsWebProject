@@ -1,6 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="locale" var="lang"/>
 <head>
     <title>Admin</title>
 </head>
@@ -11,7 +15,6 @@
         <tr>
             <td>${u.id}</td>
             <td><a href="?command=OPEN_ADVERTS_OF_USER&userID=${u.id}&userName=${u.username}"> ${u.username}</a></td>
-            <td>${u.password}</td>
             <td>
                 <form action="Controller" method="POST">
                 <input type="hidden" name="command" value="DELETE_USER">
@@ -57,7 +60,11 @@
         </tr>
     </table>
 </c:forEach>
+<br>
+<form action="Controller" method="POST">
+    <input type="hidden" name="command" value="logout">
+    <input type="submit" value="<fmt:message key="Logout" bundle="${lang}"></fmt:message>"/>
 
-<a href="${pageContext.request.contextPath}/Controller?command=logout">Logout</a>
+</form>
 </body>
 </html>
