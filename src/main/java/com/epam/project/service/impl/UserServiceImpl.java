@@ -62,6 +62,14 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public void deleteUser(int id) throws ServiceException {
+        try {
+            userDAO.deleteUser(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
 
     public boolean checkLogin(String enterLogin, String enterPass) throws ServiceException {
         User user = null;

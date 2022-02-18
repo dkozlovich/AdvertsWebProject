@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface UserService {
     User createUser(UserDTO dto) throws ServiceException;
+    void deleteUser(int id) throws ServiceException;
     User getById(int id) throws ServiceException;
     boolean checkLogin(String enterLogin, String enterPass) throws ServiceException;
     void loginUser(HttpServletRequest request, String login, String password) throws ServiceException;

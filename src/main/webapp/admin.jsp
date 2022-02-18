@@ -12,7 +12,13 @@
             <td>${u.id}</td>
             <td><a href="?command=OPEN_ADVERTS_OF_USER&userID=${u.id}&userName=${u.username}"> ${u.username}</a></td>
             <td>${u.password}</td>
-            <td><input type="button" value="Delete"></td>
+            <td>
+                <form action="Controller" method="POST">
+                <input type="hidden" name="command" value="DELETE_USER">
+                <input type="hidden" name="userID" value="${u.id}">
+                <input type="submit" value="Delete" />
+                </form>
+            </td>
         </tr>
     </table>
 </c:forEach>

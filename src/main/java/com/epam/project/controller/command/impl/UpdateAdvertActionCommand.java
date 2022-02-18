@@ -1,7 +1,7 @@
 package com.epam.project.controller.command.impl;
 
 import com.epam.project.InstanceProvider;
-import com.epam.project.controller.ActionCommand;
+import com.epam.project.controller.command.ActionCommand;
 import com.epam.project.dto.AdvertUpdateDTO;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.service.AdvertService;

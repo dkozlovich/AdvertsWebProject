@@ -1,19 +1,12 @@
 package com.epam.project.controller.command.impl;
 
 import com.epam.project.InstanceProvider;
-import com.epam.project.controller.ActionCommand;
-import com.epam.project.dto.SectionDTO;
+import com.epam.project.controller.command.ActionCommand;
 import com.epam.project.exception.ServiceException;
-import com.epam.project.model.Section;
 import com.epam.project.service.AdvertService;
 
-import com.epam.project.service.SectionService;
 import com.epam.project.service.UserService;
-import com.epam.project.util.DTOMapper;
 import jakarta.servlet.http.HttpServletRequest;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DeleteAdvertActionCommand implements ActionCommand {
 

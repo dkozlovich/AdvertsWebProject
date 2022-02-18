@@ -1,5 +1,6 @@
 package com.epam.project.controller;
 
+import com.epam.project.controller.command.ActionCommand;
 import com.epam.project.controller.command.impl.*;
 
 public enum CommandEnum {
@@ -7,6 +8,7 @@ public enum CommandEnum {
     LOGIN(new LoginActionCommand()),
     LOGOUT(new LogoutActionCommand()),
     SIGN_UP(new RegisterActionCommand()),
+    DELETE_USER(new DeleteUserActionCommand()),
     OPEN_ADMIN_PAGE(new OpenAdminPageActionCommand()),
     OPEN_MAIN_PAGE(new OpenMainPageActionCommand()),
     OPEN_LOGIN_PAGE(new OpenLoginPageActionCommand()),

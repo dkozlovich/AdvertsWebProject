@@ -2,13 +2,15 @@ package com.epam.project.controller.command.impl;
 
 import com.epam.project.ConfigurationManager;
 import com.epam.project.InstanceProvider;
-import com.epam.project.controller.ActionCommand;
+import com.epam.project.controller.command.ActionCommand;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.service.AdvertService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SearchAdvertsActionCommand implements ActionCommand {
 
@@ -17,9 +19,17 @@ public class SearchAdvertsActionCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) throws ServiceException, ServletException, IOException {
         String key = request.getParameter("searchKey");
+        String dateFrom = request.getParameter("dateFrom");
+        String dateTo = request.getParameter("dateTo");
+        String sectionId = request.getParameter("sectionID");
+        Map<String, String> searchParameters = new HashMap<>();
+        searchParameters.put("key", key);
+        searchParameters.put("dateFrom", dateFrom);
+        searchParameters.put("dateTo", dateTo);
+        searchParameters.put("sectionId", sectionId);
         try {
-            request.setAttribute("advertsOfSearch", advertService.search(key));
-
+            request.setAttribute("searchParameters", searchParameters);
+            request.setAttribute("advertsOfSearch", advertService.search(key, dateFrom, dateTo, sectionId));
         } catch (ServiceException e) {
             e.printStackTrace();
         }

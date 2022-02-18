@@ -12,4 +12,5 @@ public interface UserDAO {
     User getByUsername(String username) throws DAOException;
     User getById(int id) throws DAOException;
     User createUser(UserDTO dto) throws DAOException;
+    void deleteUser(int id) throws DAOException;
 }

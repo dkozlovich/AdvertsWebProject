@@ -1,4 +1,4 @@
-package com.epam.project.controller;
+package com.epam.project.controller.command;
 
 import com.epam.project.exception.ServiceException;
 import jakarta.servlet.ServletException;

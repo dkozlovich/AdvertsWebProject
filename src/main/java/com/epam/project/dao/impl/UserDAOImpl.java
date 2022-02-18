@@ -20,6 +20,8 @@ public class UserDAOImpl implements UserDAO {
 
     private static final String CREATE_USER = "INSERT INTO project.users (username,userpassword) values(?,?)";
 
+    private static final String DELETE_USER = "DELETE FROM project.users WHERE id=?";
+
     private static final String GET_BY_USERNAME = "SELECT * FROM project.users WHERE username=?";
 
     private static UserDAO instance;
@@ -100,6 +102,17 @@ public class UserDAOImpl implements UserDAO {
             user.setUsername(dto.getUsername());
             user.setPassword(dto.getPassword());
             return user;
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public void deleteUser(int id) throws DAOException {
+        try (Connection con = ConnectionPool.getInstance().getConnection();
+            PreparedStatement stmt = con.prepareStatement(DELETE_USER)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
         } catch (Exception e) {
             throw new DAOException(e);
         }

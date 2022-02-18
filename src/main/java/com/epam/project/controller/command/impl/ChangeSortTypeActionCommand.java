@@ -1,6 +1,6 @@
 package com.epam.project.controller.command.impl;
 
-import com.epam.project.controller.ActionCommand;
+import com.epam.project.controller.command.ActionCommand;
 import com.epam.project.exception.ServiceException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
