@@ -1,5 +1,5 @@
 # AdvertsWebProject
-Web project is an site, where users can view, search and post adverts.
+AdvertsWebProject is a service, where users can view, search and post adverts.
 
 **Guest** capability:
 - change language
