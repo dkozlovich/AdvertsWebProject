@@ -29,4 +29,4 @@ AdvertsWebProject is a service, where users can view, search and post adverts.
 - rename section
 - delete section
 
-![img.png](Diagram.png)
+![img_1.png](img_1.png)
