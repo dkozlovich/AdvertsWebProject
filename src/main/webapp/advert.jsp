@@ -84,7 +84,7 @@
                                     <input type="hidden" name="command" value="DELETE_IMAGE">
                                     <input type="hidden" name="advertID" value=${advert.id}>
                                     <input type="hidden" name="imageID" value="${i.id}">
-                                    <input type="submit" value="Delete image"/>
+                                    <input type="submit" value="<fmt:message key="Delete_image" bundle="${lang}"></fmt:message>"/>
                                 </form>
                             </c:when>
                             <c:otherwise>
@@ -101,12 +101,12 @@
     <div class="addImageButton">
         <c:choose>
             <c:when test="${advert.userId == currentUser.id}">
-                Add image:
+                <fmt:message key="Add_image" bundle="${lang}"></fmt:message>:
                 <form action="Controller" enctype="multipart/form-data" method="POST">
                     <input type="hidden" name="command" value="SAVE_IMAGE">
                     <input type="hidden" name="advertID" value=${advert.id}>
                     <input type="file" name="image" value="Add image" />
-                    <input type="submit" value="Send (Max size is 6 Mb)"/>
+                    <input type="submit" value="<fmt:message key="Send_max_size_6_Mb" bundle="${lang}"></fmt:message>"/>
                 </form>
             </c:when>
         </c:choose>
