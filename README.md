@@ -8,7 +8,7 @@ AdvertsWebProject is a service, where users can view, search and post adverts.
 - view any advert and its conversation (messages of registered users)
 - view all adverts of any section
 - view all adverts of any concrete user
-- search adverts by one or few parameters (keyword in advert's name or content, date from/until, specific section only)
+- search adverts by one, few or all parameters (keyword in advert's name or content, date from/until, specific section only)
 - sort adverts list (new first, old first, low price first, high price first)
 
 **Registered user** capability:
@@ -28,3 +28,4 @@ AdvertsWebProject is a service, where users can view, search and post adverts.
 - create section
 - rename section
 - delete section
+![img.png](Diagram.png)
