@@ -26,7 +26,7 @@ public class DTOMapper {
         return new SectionDTO()
                 .setId(entity.getId())
                 .setName(entity.getName())
-                .setTotalAdvertsOfSectionNumber(InstanceProvider.getSectionServiceImpl().getTotalAdvertsOfSectionNumber(entity.getId()));
+                .setTotalAdvertsOfSectionNumber(InstanceProvider.getAdvertServiceImpl().getTotalAdvertsOfSectionNumber(entity.getId()));
     }
     public static ImageDTO mapImage(Image image) throws ServiceException, IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();

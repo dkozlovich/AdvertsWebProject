@@ -15,5 +15,4 @@ public interface SectionDAO {
     void delete(int id) throws DAOException;
     void update(SectionUpdateDTO dto) throws DAOException;
     List<Section> getAll() throws DAOException;
-    int getTotalAdvertsOfSectionNumber(int sectionId) throws DAOException;
 }

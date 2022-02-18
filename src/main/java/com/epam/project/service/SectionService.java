@@ -14,5 +14,4 @@ public interface SectionService {
     void deleteSection(int id) throws ServiceException;
     void update(SectionUpdateDTO dto) throws ServiceException;
     List<Section> getAll() throws ServiceException;
-    int getTotalAdvertsOfSectionNumber(int sectionId) throws ServiceException;
 }

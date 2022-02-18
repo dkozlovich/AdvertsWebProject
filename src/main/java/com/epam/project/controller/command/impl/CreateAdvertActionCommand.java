@@ -35,7 +35,7 @@ public class CreateAdvertActionCommand implements ActionCommand {
         if (request.getSession().getAttribute("currentUser") != null) {
             advertService.createAdvert(dto);
             userService.setSessionAttributes(request);
-            int totalAdvertsOfSectionNumber = sectionService.getTotalAdvertsOfSectionNumber(sectionId);
+            int totalAdvertsOfSectionNumber = advertService.getTotalAdvertsOfSectionNumber(sectionId);
             int totalPagesNumber = (int) Math.ceil(totalAdvertsOfSectionNumber * 1.0 / recordsPerPage);
             page = "/Controller?command=OPEN_SECTION&sectionID=" + sectionId + "&page=" + totalPagesNumber;
         }

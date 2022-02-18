@@ -26,8 +26,6 @@ public class SectionDAOImpl implements SectionDAO {
 
     private static final String GET_BY_NAME = "SELECT * FROM project.sections WHERE name=?";
 
-    private static final String GET_TOTAL_ADVERTS_OF_SECTION_NUMBER = "SELECT COUNT(*) FROM project.adverts WHERE sectionID=?";
-
     private static SectionDAO instance;
 
     private SectionDAOImpl() {
@@ -129,22 +127,6 @@ public class SectionDAOImpl implements SectionDAO {
             } catch (Exception e) {
             throw new DAOException(e);
         }
-    }
-
-    @Override
-    public int getTotalAdvertsOfSectionNumber(int sectionId) throws DAOException {
-        int result = 0;
-        try (Connection con = ConnectionPool.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(GET_TOTAL_ADVERTS_OF_SECTION_NUMBER);){
-            stmt.setInt(1,sectionId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                result = rs.getInt(1);
-            }
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        return result;
     }
 
     private Section mapSection(ResultSet resultSet) throws SQLException {

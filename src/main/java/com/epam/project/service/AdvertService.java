@@ -16,4 +16,6 @@ public interface AdvertService {
     Advert getById(int id) throws ServiceException;
     List<Advert> getAllByUser(int id) throws ServiceException;
     List<Advert> search(String key, String dateFrom, String dateTo, String sectionId, int offset, int limit) throws ServiceException;
+    int getTotalAdvertsOfSectionNumber(int sectionId) throws ServiceException;
+
 }

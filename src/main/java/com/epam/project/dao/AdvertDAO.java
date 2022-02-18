@@ -5,7 +5,6 @@ import com.epam.project.dto.AdvertUpdateDTO;
 import com.epam.project.exception.DAOException;
 import com.epam.project.model.Advert;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,5 +25,8 @@ public interface AdvertDAO {
 
     List<Advert> search(String key, String dateFrom, String dateTo, String sectionId, int offset, int limit) throws DAOException;
 
-    public void updateAdvertDate(int advertId) throws DAOException;
+    void updateAdvertDate(int advertId) throws DAOException;
+
+    int getTotalAdvertsOfSectionNumber(int sectionId) throws DAOException;
+
 }

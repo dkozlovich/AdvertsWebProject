@@ -1,6 +1,7 @@
 package com.epam.project.service.impl;
 
 import com.epam.project.InstanceProvider;
+import com.epam.project.dao.AdvertDAO;
 import com.epam.project.dao.SectionDAO;
 import com.epam.project.dto.SectionCreateDTO;
 import com.epam.project.dto.SectionUpdateDTO;
@@ -80,15 +81,6 @@ public class SectionServiceImpl implements SectionService {
         try {
             return sectionDAO.getById(id);
         } catch (Exception e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public int getTotalAdvertsOfSectionNumber(int sectionId) throws ServiceException {
-        try {
-            return sectionDAO.getTotalAdvertsOfSectionNumber(sectionId);
-        } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
