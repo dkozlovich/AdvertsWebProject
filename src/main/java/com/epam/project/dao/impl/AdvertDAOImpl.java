@@ -162,7 +162,7 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     @Override
     public List<Advert> getBySectionId(int sectionId, int offset, int limit, String sortType) throws DAOException {
-        String query = null;
+        String query;
         switch (sortType) {
             case "MODIFIED_DESC":
                 query = GET_BY_SECTION_ID_MODIFIED_DESC;
@@ -175,6 +175,9 @@ public class AdvertDAOImpl implements AdvertDAO {
                 break;
             case "COST_ASC":
                 query = GET_BY_SECTION_ID_COST_ASC;
+                break;
+            default:
+                query = GET_BY_SECTION_ID_MODIFIED_DESC;
                 break;
         }
         List<Advert> list = new ArrayList<>();
@@ -215,7 +218,7 @@ public class AdvertDAOImpl implements AdvertDAO {
            if (dateTo != null && !dateTo.isEmpty()) {
                 stmt.setDate(2, Date.valueOf(dateTo));
             } else {
-               stmt.setDate(2, new Date(System.currentTimeMillis()));
+               stmt.setDate(2,  Date.valueOf("9999-12-31"));
            }
             stmt.setString(5, "%" + key + "%");
             stmt.setString(6, "%" + key + "%");
