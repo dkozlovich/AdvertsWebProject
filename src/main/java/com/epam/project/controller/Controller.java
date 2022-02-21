@@ -32,7 +32,7 @@ public class Controller extends HttpServlet {
             request.getSession().setAttribute("locale", Locale.forLanguageTag(Locale.getDefault().getLanguage()));
         }
         if (sortType == null) {
-            request.getSession().setAttribute("sortType", "MODIFIED_DESC");
+            request.getSession().setAttribute("sortType", "MODIFIED DESC");
         }
         String command = request.getParameter("command").toUpperCase();
         ActionCommand actionCommand = ActionResolver.defineCommand(command);

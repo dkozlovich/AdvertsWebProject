@@ -20,13 +20,7 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String GET_BY_ID = "SELECT * FROM project.adverts WHERE id=?";
 
-    private static final String GET_BY_SECTION_ID_MODIFIED_DESC = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY modified DESC LIMIT ?,?";
-
-    private static final String GET_BY_SECTION_ID_MODIFIED_ASC = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY modified ASC LIMIT ?,?";
-
-    private static final String GET_BY_SECTION_ID_COST_DESC = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY cost DESC LIMIT ?,?";
-
-    private static final String GET_BY_SECTION_ID_COST_ASC = "SELECT * FROM project.adverts WHERE sectionID=? ORDER BY cost ASC LIMIT ?,?";
+    private static final String GET_BY_SECTION_ID = "SELECT * FROM project.adverts WHERE sectionID=?";
 
     private static final String CREATE_ADVERT = "INSERT INTO project.adverts (sectionID,name,content,cost,created,modified,userID) values (?,?,?,?,?,?,?)";
 
@@ -163,22 +157,10 @@ public class AdvertDAOImpl implements AdvertDAO {
     @Override
     public List<Advert> getBySectionId(int sectionId, int offset, int limit, String sortType) throws DAOException {
         String query;
-        switch (sortType) {
-            case "MODIFIED_DESC":
-                query = GET_BY_SECTION_ID_MODIFIED_DESC;
-                break;
-            case "MODIFIED_ASC":
-                query = GET_BY_SECTION_ID_MODIFIED_ASC;
-                break;
-            case "COST_DESC":
-                query = GET_BY_SECTION_ID_COST_DESC;
-                break;
-            case "COST_ASC":
-                query = GET_BY_SECTION_ID_COST_ASC;
-                break;
-            default:
-                query = GET_BY_SECTION_ID_MODIFIED_DESC;
-                break;
+        if (sortType != null && !sortType.isEmpty()) {
+            query = GET_BY_SECTION_ID + " ORDER BY " + sortType + " LIMIT ?,?";
+        } else {
+            query = GET_BY_SECTION_ID + " LIMIT ?,?";
         }
         List<Advert> list = new ArrayList<>();
         try (Connection con = ConnectionPool.getInstance().getConnection();
