@@ -64,7 +64,7 @@
             <th> <fmt:message key="Cost" bundle="${lang}"></fmt:message></th>
             <th> <fmt:message key="Created" bundle="${lang}"></fmt:message></th>
             <th> <fmt:message key="Modified" bundle="${lang}"></fmt:message></th>
-            <c:forEach items="${advertsOfSearch}" var="a">
+            <c:forEach items="${advertsSearch}" var="a">
         </tr>
         <tr>
             <td> <a href="?command=OPEN_ADVERT&id=${a.id}" > ${a.name} </a>  </td>
@@ -89,7 +89,7 @@
     <%--For displaying Page numbers.
     The when condition does not display a link for the current page--%>
     <c:choose>
-    <c:when test="${advertsOfSearch.size() != 0}">
+    <c:when test="${advertsSearch.size() != 0}">
     <table border="1" cellpadding="5" cellspacing="5">
         <tr>
             <c:forEach begin="1" end="${totalPagesNumber}" var="i">

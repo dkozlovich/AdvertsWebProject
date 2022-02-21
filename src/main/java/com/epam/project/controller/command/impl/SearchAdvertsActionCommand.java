@@ -39,10 +39,10 @@ public class SearchAdvertsActionCommand implements ActionCommand {
             request.setAttribute("totalPagesNumber", totalPagesNumber);
             request.setAttribute("currentPage", page);
             request.setAttribute("totalAdvertsNumber", totalAdvertsNumber);
-            request.setAttribute("advertsOfSearch", advertService.search(key, dateFrom, dateTo, sectionId,(page-1) * recordsPerPage, recordsPerPage));
+            request.setAttribute("advertsSearch", advertService.search(key, dateFrom, dateTo, sectionId,(page-1) * recordsPerPage, recordsPerPage));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        return ConfigurationManager.getProperty("path.page.advertsOfSearch");
+        return ConfigurationManager.getProperty("path.page.advertsSearch");
     }
 }
