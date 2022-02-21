@@ -32,7 +32,7 @@ public class SearchAdvertsActionCommand implements ActionCommand {
         searchParameters.put("dateFrom", dateFrom);
         searchParameters.put("dateTo", dateTo);
         searchParameters.put("sectionId", sectionId);
-        int totalAdvertsNumber = advertService.search(key, dateFrom, dateTo, sectionId,0, Integer.MAX_VALUE).size();
+        int totalAdvertsNumber = advertService.getTotalAdvertsOfSearchNumber(key, dateFrom, dateTo, sectionId);
         int totalPagesNumber = (int) Math.ceil(totalAdvertsNumber * 1.0 / recordsPerPage);
         try {
             request.setAttribute("searchParameters", searchParameters);

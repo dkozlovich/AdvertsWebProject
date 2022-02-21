@@ -29,4 +29,6 @@ public interface AdvertDAO {
 
     int getTotalAdvertsOfSectionNumber(int sectionId) throws DAOException;
 
+    int getTotalAdvertsOfSearchNumber(String key, String dateFrom, String dateTo, String sectionId) throws DAOException;
+
 }

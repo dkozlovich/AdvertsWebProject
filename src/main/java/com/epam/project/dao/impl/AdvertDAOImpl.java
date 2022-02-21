@@ -34,6 +34,8 @@ public class AdvertDAOImpl implements AdvertDAO {
 
     private static final String GET_TOTAL_ADVERTS_OF_SECTION_NUMBER = "SELECT COUNT(*) FROM project.adverts WHERE sectionID=?";
 
+    public static final String GET_TOTAL_ADVERTS_OF_SEARCH_NUMBER = "SELECT COUNT(*) FROM project.adverts WHERE modified BETWEEN ? AND ? AND sectionID BETWEEN ? AND ? AND (content LIKE ? OR name LIKE ?)";
+
     private static AdvertDAO instance;
 
     private AdvertDAOImpl() {
@@ -234,6 +236,42 @@ public class AdvertDAOImpl implements AdvertDAO {
         try (Connection con = ConnectionPool.getInstance().getConnection();
              PreparedStatement stmt = con.prepareStatement(GET_TOTAL_ADVERTS_OF_SECTION_NUMBER);){
             stmt.setInt(1,sectionId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public int getTotalAdvertsOfSearchNumber(String key, String dateFrom, String dateTo, String sectionId) throws DAOException {
+        int result = 0;
+        int id;
+        try (Connection con = ConnectionPool.getInstance().getConnection();
+             PreparedStatement stmt = con.prepareStatement(GET_TOTAL_ADVERTS_OF_SEARCH_NUMBER);){
+            if (sectionId!= null && !sectionId.isEmpty()) {
+                id = Integer.parseInt(sectionId);
+                stmt.setInt(3, id);
+                stmt.setInt(4, id);
+            } else {
+                stmt.setInt(3, Integer.MIN_VALUE);
+                stmt.setInt(4, Integer.MAX_VALUE);
+            }
+            if (dateFrom != null && !dateFrom.isEmpty()) {
+                stmt.setDate(1, Date.valueOf(dateFrom));
+            } else {
+                stmt.setDate(1, new Date(0));
+            }
+            if (dateTo != null && !dateTo.isEmpty()) {
+                stmt.setDate(2, Date.valueOf(dateTo));
+            } else {
+                stmt.setDate(2,  Date.valueOf("9999-12-31"));
+            }
+            stmt.setString(5, "%" + key + "%");
+            stmt.setString(6, "%" + key + "%");
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 result = rs.getInt(1);

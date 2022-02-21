@@ -13,7 +13,6 @@ import com.epam.project.service.SectionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Date;
 import java.util.List;
 
 public class AdvertServiceImpl implements AdvertService {
@@ -127,6 +126,15 @@ public class AdvertServiceImpl implements AdvertService {
     public int getTotalAdvertsOfSectionNumber(int sectionId) throws ServiceException {
         try {
             return advertDAO.getTotalAdvertsOfSectionNumber(sectionId);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int getTotalAdvertsOfSearchNumber(String key, String dateFrom, String dateTo, String sectionId) throws ServiceException {
+        try {
+            return advertDAO.getTotalAdvertsOfSearchNumber(key, dateFrom, dateTo, sectionId);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
