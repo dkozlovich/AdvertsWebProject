@@ -15,19 +15,14 @@ public class DeleteAdvertActionCommand implements ActionCommand {
     private UserService userService = InstanceProvider.getUserServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) throws ServiceException {
         String page = null;
         int id = Integer.parseInt(request.getParameter("id"));
         String sectionID = request.getParameter("sectionID");
-        try {
             if (request.getSession().getAttribute("currentUser") != null) {
                 advertService.deleteAdvert(id);
-                userService.setSessionAttributes(request);
                 page = "/Controller?command=OPEN_SECTION&sectionID=" + sectionID;
             }
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
         return page;
     }
 }

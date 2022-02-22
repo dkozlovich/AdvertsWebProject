@@ -13,8 +13,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class RegisterActionCommand implements ActionCommand {
     private UserService userService = InstanceProvider.getUserServiceImpl();
+
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) throws ServiceException {
         String page = null;
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -27,8 +28,6 @@ public class RegisterActionCommand implements ActionCommand {
         } catch (EntityAlreadyExistException e) {
             request.setAttribute("errorSignUPPassMessage", MessageManager.getProperty("message.signUPerror"));
             page = ConfigurationManager.getProperty("path.page.signUp");
-        } catch (ServiceException e) {
-            e.printStackTrace();
         }
         return page;
     }

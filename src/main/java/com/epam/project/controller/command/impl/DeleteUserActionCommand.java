@@ -15,12 +15,8 @@ public class DeleteUserActionCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) throws ServiceException, ServletException, IOException {
-        try {
-            int id = Integer.parseInt(request.getParameter("userID"));
-            userService.deleteUser(id);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        int id = Integer.parseInt(request.getParameter("userID"));
+        userService.deleteUser(id);
         return "/Controller?command=OPEN_ADMIN_PAGE";
     }
 }

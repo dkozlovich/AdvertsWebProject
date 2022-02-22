@@ -13,17 +13,13 @@ public class DeleteSectionActionCommand implements ActionCommand {
     private SectionService sectionService = InstanceProvider.getSectionServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request) throws ServiceException {
         String page = null;
         int id = Integer.parseInt(request.getParameter("id"));
-        try {
-            if (request.getSession().getAttribute("currentUser") != null) {
-                sectionService.deleteSection(id);
-                request.getSession().setAttribute("sections", sectionService.getAll());
-                page = ConfigurationManager.getProperty("path.page.admin");
-            }
-        } catch (ServiceException e) {
-            e.printStackTrace();
+        if (request.getSession().getAttribute("currentUser") != null) {
+            sectionService.deleteSection(id);
+            request.getSession().setAttribute("sections", sectionService.getAll());
+            page = ConfigurationManager.getProperty("path.page.admin");
         }
         return page;
     }

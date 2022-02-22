@@ -25,6 +25,7 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.getSession().removeAttribute("error");
         String page;
         Locale locale = (Locale) request.getSession().getAttribute("locale");
         String sortType = (String) request.getSession().getAttribute("sortType");
@@ -40,7 +41,7 @@ public class Controller extends HttpServlet {
             page = actionCommand.execute(request);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
-        } catch (ServiceException | ServletException e) {
+        } catch (Exception e) {
             page = ConfigurationManager.getProperty("path.page.error");
             request.getSession().setAttribute("error", e);
             response.sendRedirect(request.getContextPath() + page);

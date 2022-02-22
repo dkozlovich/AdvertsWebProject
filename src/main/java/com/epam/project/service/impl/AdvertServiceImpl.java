@@ -59,9 +59,10 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public void deleteAdvert(int id) throws ServiceException {
         try {
-            advertDAO.getById(id).orElseThrow(ServiceException::new);
+            advertDAO.getById(id).orElseThrow(()-> new BadRequestServiceException("Advert is not found."));
             advertDAO.delete(id);
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -69,10 +70,17 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public void updateAdvert(AdvertUpdateDTO dto) throws ServiceException {
         try {
-            if (dto.getName() != null && dto.getName().length() < 46 && dto.getContent() != null && dto.getCost() > 0) {
+            if (dto.getName() != null && !dto.getName().isEmpty() && dto.getName().length() < 46
+                    && dto.getContent() != null && !dto.getContent().isEmpty()
+                    && sectionService.getById(dto.getSectionId()).isPresent()
+                    && dto.getCost() >= 0) {
                 advertDAO.update(dto);
+            } else {
+                LOGGER.error("Incorrect data.");
+                throw new BadRequestServiceException("Incorrect data.");
             }
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -82,6 +90,7 @@ public class AdvertServiceImpl implements AdvertService {
         try {
             return advertDAO.getAll();
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -91,6 +100,7 @@ public class AdvertServiceImpl implements AdvertService {
         try {
             return advertDAO.getBySectionId(sectionId, offset, limit, sortType);
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -98,8 +108,14 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public Advert getById(int id) throws ServiceException {
         try {
-            return advertDAO.getById(id).get();
+            if (advertDAO.getById(id).isPresent()) {
+                return advertDAO.getById(id).get();
+            } else {
+                LOGGER.error("Advert is not found.");
+                throw new BadRequestServiceException("Advert is not found.");
+            }
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -109,6 +125,7 @@ public class AdvertServiceImpl implements AdvertService {
         try {
             return advertDAO.getAllByUser(id);
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -118,6 +135,7 @@ public class AdvertServiceImpl implements AdvertService {
         try {
             return advertDAO.search(key, dateFrom, dateTo, sectionId, offset, limit);
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -127,6 +145,7 @@ public class AdvertServiceImpl implements AdvertService {
         try {
             return advertDAO.getTotalAdvertsOfSectionNumber(sectionId);
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -136,6 +155,7 @@ public class AdvertServiceImpl implements AdvertService {
         try {
             return advertDAO.getTotalAdvertsOfSearchNumber(key, dateFrom, dateTo, sectionId);
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }

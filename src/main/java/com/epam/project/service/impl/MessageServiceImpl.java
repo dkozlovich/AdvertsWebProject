@@ -74,6 +74,7 @@ public class MessageServiceImpl implements MessageService {
             }
             return result;
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
@@ -83,6 +84,7 @@ public class MessageServiceImpl implements MessageService {
         try {
             return messageDAO.findTotalMessagesNumber(advertId);
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }

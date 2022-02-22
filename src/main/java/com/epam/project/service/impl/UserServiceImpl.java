@@ -6,10 +6,7 @@ import com.epam.project.dao.SectionDAO;
 import com.epam.project.dao.UserDAO;
 import com.epam.project.dto.SectionDTO;
 import com.epam.project.dto.UserDTO;
-import com.epam.project.exception.DAOException;
-import com.epam.project.exception.EntityAlreadyExistException;
-import com.epam.project.exception.IncorrectLoginOrPassException;
-import com.epam.project.exception.ServiceException;
+import com.epam.project.exception.*;
 import com.epam.project.model.Section;
 import com.epam.project.model.User;
 import com.epam.project.service.SectionService;
@@ -17,11 +14,15 @@ import com.epam.project.service.UserService;
 import com.epam.project.util.DTOMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private static UserService instance;
 
@@ -47,35 +48,49 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserDTO dto) throws ServiceException {
         try {
-            User user = null;
+            User user;
             user = userDAO.getByUsername(dto.getUsername());
             if (user != null) {
-                throw new EntityAlreadyExistException();
+                LOGGER.error("User with such name is already exists.");
+                throw new EntityAlreadyExistException("User with such name is already exists.");
             } else {
-                if (dto.getUsername() != null && dto.getPassword() != null && dto.getUsername().length() < 46 && dto.getPassword().length() < 46) {
+                if (dto.getUsername() != null && !dto.getUsername().isEmpty()
+                        && dto.getPassword() != null && !dto.getPassword().isEmpty()
+                        && dto.getUsername().length() < 46 && dto.getPassword().length() < 46) {
                     return userDAO.createUser(dto);
+                } else {
+                    LOGGER.error("Incorrect login or password.");
+                    throw new BadRequestServiceException("Incorrect login or password.");
                 }
             }
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
-        return null;
     }
 
     @Override
     public void deleteUser(int id) throws ServiceException {
         try {
-            userDAO.deleteUser(id);
+            User user = userDAO.getById(id);
+            if (user != null) {
+                userDAO.deleteUser(id);
+            } else {
+                LOGGER.error("User is not found.");
+                throw new BadRequestServiceException("User is not found.");
+            }
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
 
     public boolean checkLogin(String enterLogin, String enterPass) throws ServiceException {
-        User user = null;
+        User user;
         try {
             user = userDAO.getByUsername(enterLogin);
-        } catch (Exception e) {
+        } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
         if (user == null) {
@@ -96,6 +111,7 @@ public class UserServiceImpl implements UserService {
                 session.setAttribute("currentUser", userDAO.getByUsername(login));
             }
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException();
         }
     }
@@ -110,6 +126,7 @@ public class UserServiceImpl implements UserService {
             }
             return userDTO;
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException();
         }
     }
@@ -127,11 +144,12 @@ public class UserServiceImpl implements UserService {
             session.setAttribute("users", userDAO.getAllUsers());
             List<SectionDTO> sectionsDTO = new ArrayList<>();
             List<Section> sections = sectionService.getAll();
-            for (Section section : sections){
+            for (Section section : sections) {
                 sectionsDTO.add(DTOMapper.mapSection(section));
             }
             session.setAttribute("sections", sectionsDTO);
         } catch (DAOException e) {
+            LOGGER.error(e);
             throw new ServiceException();
         }
     }
@@ -141,6 +159,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.getById(id);
         } catch (Exception e) {
+            LOGGER.error(e);
             throw new ServiceException(e);
         }
     }

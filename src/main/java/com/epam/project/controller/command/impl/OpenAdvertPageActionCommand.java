@@ -33,35 +33,30 @@ public class OpenAdvertPageActionCommand implements ActionCommand {
     private ImageService imageService = InstanceProvider.getImageServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) throws IOException {
+    public String execute(HttpServletRequest request) throws IOException, ServiceException {
         int page = 1;
         int recordsPerPage = 3;
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         int id = Integer.parseInt(request.getParameter("id"));
-        try {
-            List<MessageDTO> messages = messageService.findByAdvertId(id,(page-1) * recordsPerPage, recordsPerPage);
-            int totalMessagesNumber = messageService.getTotalMessagesNumber(id);
-            int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
-            List<Image> images = imageService.getByAdvertId(id);
-            List<ImageDTO> imagesDTO = new ArrayList<>();
-            for (Image item : images) {
-                ImageDTO imageDTO = DTOMapper.mapImage(item);
-                imagesDTO.add(imageDTO);
-            }
-            Advert advert = advertService.getById(id);
-            request.setAttribute("imagesDTO", imagesDTO);
-            request.setAttribute("advert", advert);
-            request.setAttribute("sectionName", sectionService.getById(advert.getSectionId()).get().getName());
-            request.setAttribute("userName", userService.getById(advert.getUserId()).getUsername());
-            request.setAttribute("messages", messages);
-            request.setAttribute("totalPagesNumber", totalPagesNumber);
-            request.setAttribute("currentPage", page);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-            e.printStackTrace();
+        List<MessageDTO> messages = messageService.findByAdvertId(id, (page - 1) * recordsPerPage, recordsPerPage);
+        int totalMessagesNumber = messageService.getTotalMessagesNumber(id);
+        int totalPagesNumber = (int) Math.ceil(totalMessagesNumber * 1.0 / recordsPerPage);
+        List<Image> images = imageService.getByAdvertId(id);
+        List<ImageDTO> imagesDTO = new ArrayList<>();
+        for (Image item : images) {
+            ImageDTO imageDTO = DTOMapper.mapImage(item);
+            imagesDTO.add(imageDTO);
         }
+        Advert advert = advertService.getById(id);
+        request.setAttribute("imagesDTO", imagesDTO);
+        request.setAttribute("advert", advert);
+        request.setAttribute("sectionName", sectionService.getById(advert.getSectionId()).get().getName());
+        request.setAttribute("userName", userService.getById(advert.getUserId()).getUsername());
+        request.setAttribute("messages", messages);
+        request.setAttribute("totalPagesNumber", totalPagesNumber);
+        request.setAttribute("currentPage", page);
         return ConfigurationManager.getProperty("path.page.advert");
     }
 }

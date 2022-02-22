@@ -14,18 +14,14 @@ public class UpdateSectionActionCommand implements ActionCommand {
     private SectionService sectionService = InstanceProvider.getSectionServiceImpl();
 
     @Override
-    public String execute(HttpServletRequest request) {
-        String page = null;
+    public String execute(HttpServletRequest request) throws ServiceException {
+        String page;
         SectionUpdateDTO dto = new SectionUpdateDTO();
         dto.setId(Integer.parseInt(request.getParameter("id")));
         dto.setName(request.getParameter("name"));
-        try {
-            sectionService.update(dto);
-            request.getSession().setAttribute("sections", sectionService.getAll());
-            page = ConfigurationManager.getProperty("path.page.admin");
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        sectionService.update(dto);
+        request.getSession().setAttribute("sections", sectionService.getAll());
+        page = ConfigurationManager.getProperty("path.page.admin");
         return page;
     }
 }
