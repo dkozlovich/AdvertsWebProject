@@ -3,20 +3,13 @@ package com.epam.project.controller.command.impl;
 import com.epam.project.InstanceProvider;
 import com.epam.project.controller.command.ActionCommand;
 import com.epam.project.dto.AdvertCreateDTO;
-import com.epam.project.exception.BadRequestServiceException;
 import com.epam.project.exception.ServiceException;
 import com.epam.project.service.AdvertService;
-import com.epam.project.service.SectionService;
-import com.epam.project.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class CreateAdvertActionCommand implements ActionCommand {
 
     private AdvertService advertService = InstanceProvider.getAdvertServiceImpl();
-
-    private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) throws ServiceException {

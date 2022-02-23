@@ -1,6 +1,7 @@
 package com.epam.project.service.impl;
 
 import com.epam.project.InstanceProvider;
+import com.epam.project.dao.AdvertDAO;
 import com.epam.project.dao.MessageDAO;
 import com.epam.project.dao.UserDAO;
 import com.epam.project.dto.MessageDTO;
@@ -24,6 +25,8 @@ public class MessageServiceImpl implements MessageService {
 
     private static MessageService instance;
 
+    private AdvertDAO advertDAO = InstanceProvider.getAdvertDAOImpl();
+
     private MessageDAO messageDAO = InstanceProvider.getMessageDAOImpl();
 
     private UserDAO userDAO = InstanceProvider.getUserDAOImpl();
@@ -43,7 +46,7 @@ public class MessageServiceImpl implements MessageService {
     public Message createMessage(String content, int userId, int advertId) throws ServiceException {
         Message message;
         try {
-            if (content != null && !content.isEmpty()) {
+            if (advertDAO.getById(advertId).isPresent() && content != null && !content.isEmpty()) {
                 message = messageDAO.create(content,userId,advertId);
             } else {
                 LOGGER.error("Incorrect data.");
